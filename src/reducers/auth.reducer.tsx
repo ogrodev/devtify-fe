@@ -3,14 +3,14 @@ import { IAuth } from "../interfaces/auth.interface";
 export const UPDATE_AUTH = "APP/AUTH/UPDATE";
 export const CLEAR_AUTH = "APP/AUTH/CLEAR";
 
-export const initialCompanyState: IAuth = {} as IAuth;
+export const initialAuthState: IAuth = {} as IAuth;
 
 interface IAction {
 	type: string;
 	payload?: IAuth;
 }
 
-export const companyReducer = (state: IAuth = initialCompanyState, action: IAction) => {
+export const authReducer = (state: IAuth = initialAuthState, action: IAction) => {
 	switch (action.type) {
 		case UPDATE_AUTH:
 			return {
@@ -19,7 +19,7 @@ export const companyReducer = (state: IAuth = initialCompanyState, action: IActi
 			};
 
 		case CLEAR_AUTH:
-			return initialCompanyState;
+			return initialAuthState;
 
 		default:
 			return state;
