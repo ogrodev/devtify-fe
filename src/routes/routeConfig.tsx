@@ -1,5 +1,4 @@
 export const routeConfig = {
-	home: { path: "/", name: "Home" },
+	login: { path: "/", name: "Login" },
 	dashboard: { path: "/dashboard", name: "Dashboard" },
-	login: { path: "/login", name: "Login" },
 };
