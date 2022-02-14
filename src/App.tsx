@@ -11,9 +11,7 @@ import "./styles/inputs.sass";
 import "./styles/buttons.sass";
 import Layout from "./pages/Layout/Layout";
 import Page404 from "./pages/404/404";
-
-// dynamically import Dashboard
-const Home = React.lazy(() => import("./pages/Home/home.protected"));
+import Home from "./pages/Home/home.protected";
 
 function App() {
 	return (

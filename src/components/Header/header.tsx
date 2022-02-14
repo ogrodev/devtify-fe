@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { menuRoutes, routeConfig } from "../../routes/routeConfig";
 import CollabLogo from "../Logo/collab.logo";
 import styles from "./header.module.sass";
@@ -10,12 +10,14 @@ import { createImageFromInitials } from "../../utils/imageFromText.util";
 import ReactNiceAvatar from "react-nice-avatar";
 import { Popover, PopoverBody, UncontrolledPopover } from "reactstrap";
 import { CLEAR_AUTH } from "../../reducers/auth.reducer";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function Header() {
 	const [toggler, setToggler] = useState(false);
+
 	const { authState, updateAuthState } = useAuth();
-	const navigate = useNavigate();
+	const popoverRef = useRef<HTMLDivElement>(null);
+
 	const toggleSearch = () => {};
 	const coins = authState?.coins || 0;
 	const userAvatar =
@@ -25,9 +27,6 @@ export default function Header() {
 
 	const handleLogout = () => {
 		updateAuthState(CLEAR_AUTH);
-		setTimeout(() => {
-			navigate(routeConfig.login.path);
-		}, 300);
 	};
 
 	return (
@@ -56,7 +55,7 @@ export default function Header() {
 					<RiCoinsLine size="1.5em" />
 					<span>{coins}BDC</span>
 				</Link>
-				<div className={styles.profile} id="user-menu">
+				<div className={styles.profile} id="user-menu" ref={popoverRef}>
 					<div className="avatar">
 						{typeof userAvatar === "string" ? (
 							<img src={userAvatar} alt={authState.name || "User Avatar"} />
@@ -72,7 +71,7 @@ export default function Header() {
 				<Popover
 					isOpen={toggler}
 					toggle={() => setToggler(!toggler)}
-					target="user-menu"
+					target={popoverRef}
 					trigger="click"
 					placement="bottom"
 				>

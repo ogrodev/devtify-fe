@@ -1,11 +1,11 @@
 export const routeConfig = {
-	login: { path: "", name: "Login" },
-	home: { path: "home", name: "Home" },
-	workshops: { path: "workshops", name: "Workshops" },
-	news: { path: "news", name: "News" },
-	openSource: { path: "open-source", name: "Open Source" },
-	marketplace: { path: "marketplace", name: "Marketplace" },
-	wallet: { path: "wallet", name: "My Wallet" },
+	login: { path: "/", name: "Login" },
+	home: { path: "/home", name: "Home" },
+	workshops: { path: "/workshops", name: "Workshops" },
+	news: { path: "/news", name: "News" },
+	openSource: { path: "/open-source", name: "Open Source" },
+	marketplace: { path: "/marketplace", name: "Marketplace" },
+	wallet: { path: "/wallet", name: "My Wallet" },
 };
 
 export const menuRoutes = [
