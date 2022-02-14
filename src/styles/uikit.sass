@@ -6,17 +6,20 @@
     --black: #191F3C
     --blackText: #241332
     --grayBorder: #707070
+    --grayBorderFaded: #70707040
     --grayText: #9F9F9F
     --grayBg: #F1F0F2
+    --highlightGray: #5e6276
     --white: #fff
 
     //Spacing
     --formGap: 16px
 
 body, html
-    font-family: 'Montserrat', sans-serif
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif
+    overflow-x: hidden
 
-main.light
+div.light
     --bg: var(--white)
     --bgAccent: var(--cyan)
     --bgOff: var(--grayBg)
@@ -24,6 +27,38 @@ main.light
     --secondaryText: var(--grayText)
     --border: var(--grayBorder)
     --accentText: var(--purple)
+    --menuText: var(--highlightGray)
+
+.defaultPadding
+    padding: 0 clamp(24px, 6.6vw, 85px)
 
 .secondaryText
     color: var(--secondaryText)
+
+.headerBorder
+    border-bottom: 1px solid var(--grayBorderFaded)
+
+.avatar
+    width: 50px
+    height: 50px
+    img
+        width: 100%
+        height: 100%
+        border-radius: 50%
+        object-fit: cover
+
+.avatarGen
+    width: 50xp
+    height: 50px
+    svg
+        left: 0
+    > div > div > div > svg:last-child
+        left: initial
+
+.fullScreen
+    height: 100vh
+    width: 100vw
+    overflow-y: hidden
+    > div
+        max-width: 100%
+        height: 100%

@@ -1,7 +1,7 @@
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import GlobalProvider from "./contexts/globalProvider";
-import Dashboard from "./pages/dashboard.protected";
 import Login from "./pages/Login/login";
 import RequireAuth from "./routes/requireAuth";
 import { routeConfig } from "./routes/routeConfig";
@@ -9,27 +9,30 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/uikit.sass";
 import "./styles/inputs.sass";
 import "./styles/buttons.sass";
-import useSettings from "./hooks/useSettings";
+import Layout from "./pages/Layout/Layout";
+import Page404 from "./pages/404/404";
+
+// dynamically import Dashboard
+const Home = React.lazy(() => import("./pages/Home/home.protected"));
 
 function App() {
-	const { settings } = useSettings();
 	return (
 		<GlobalProvider>
-			<main className={`App ${settings.theme}`}>
-				<Routes>
-					<Route path={routeConfig.login.path} element={<Login />} />
-
-					{/* Protected routes */}
+			<Routes>
+				{/* Protected routes */}
+				<Route path="/" element={<Layout />}>
+					<Route index element={<Login />} />
 					<Route
-						path={routeConfig.dashboard.path}
+						path={routeConfig.home.path}
 						element={
 							<RequireAuth>
-								<Dashboard />
+								<Home />
 							</RequireAuth>
 						}
 					/>
-				</Routes>
-			</main>
+				</Route>
+				<Route path="/*" element={<Page404 />} />
+			</Routes>
 		</GlobalProvider>
 	);
 }

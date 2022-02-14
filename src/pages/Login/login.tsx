@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { genConfig } from "react-nice-avatar";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "reactstrap";
 import GenericButton from "../../components/Buttons/genericButton";
@@ -7,7 +8,8 @@ import Checkbox from "../../components/FormControls/Checkbox/checkbox";
 import TextInput from "../../components/FormControls/TextInput/TextInput";
 import CollabLogo from "../../components/Logo/collab.logo";
 import useAuth from "../../hooks/useAuth";
-import { UPDATE_AUTH } from "../../reducers/auth.reducer";
+import { IAuth } from "../../interfaces/auth.interface";
+import { parsedLocalAuth, UPDATE_AUTH } from "../../reducers/auth.reducer";
 import { routeConfig } from "../../routes/routeConfig";
 import styles from "./login.module.sass";
 
@@ -25,15 +27,31 @@ export default function Login() {
 
 	const handleLogin = (data: ILogin) => {
 		setLoggingIn(true);
+		const randomCoins = Math.floor(Math.random() * 100);
+		const generatedAvatarConfig = genConfig({ hairColorRandom: true });
+		const mockedUser: IAuth = {
+			authenticated: true,
+			name: "John Doe",
+			coins: randomCoins,
+			avatar: { type: "generator", config: generatedAvatarConfig, src: "" },
+			title: "Software Engineer",
+			projects: ["Devtify", "Collab"],
+		};
 		// Make API call and check if user is valid and remove timeout
-		updateAuthState(UPDATE_AUTH, { authenticated: true });
 		setTimeout(() => {
-			navigate(routeConfig.dashboard.path);
+			updateAuthState(UPDATE_AUTH, mockedUser);
+			navigate(routeConfig.home.path);
 		}, 2000);
 		return () => {
 			setLoggingIn(false);
 		};
 	};
+
+	useEffect(() => {
+		if (parsedLocalAuth?.authenticated) {
+			navigate(routeConfig.home.path);
+		}
+	}, []);
 
 	return (
 		<div className={styles.loginContainer}>

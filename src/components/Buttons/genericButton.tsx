@@ -3,7 +3,7 @@ import { Spinner } from "reactstrap";
 interface IProps {
 	type: "submit" | "reset" | "button";
 	className?: string;
-	variant?: "purple" | "cian" | "red" | "black" | "white" | "blue";
+	variant?: "purple" | "cian" | "gray" | "black" | "white" | "blue" | "text";
 	label?: string;
 	disabled?: boolean;
 	onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
