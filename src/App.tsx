@@ -21,7 +21,7 @@ function App() {
 				<Route path="/" element={<Layout />}>
 					<Route index element={<Login />} />
 					<Route
-						path={routeConfig.home.path}
+						path="home"
 						element={
 							<RequireAuth>
 								<Home />
