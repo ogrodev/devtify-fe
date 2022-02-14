@@ -1,0 +1,48 @@
+.logoContainer
+    width: 150px
+
+.menuLink
+    font-weight: 600
+    font-size: 16px
+    color: var(--menuText)
+    text-decoration: none
+    &:hover
+        color: var(--blueBaires)
+
+.market, .wallet
+    display: flex
+    align-items: center
+    gap: 8px
+    color: var(--text)
+    text-decoration: none
+
+.wallet
+    span
+        font-weight: 800
+
+.profile
+    display: flex
+    align-items: center
+    gap: 8px
+    color: var(--text)
+    text-decoration: none
+    cursor: pointer
+    &:hover
+        color: var(--blueBaires)
+
+.afterButton
+    width: 24px
+    height: 24px
+    border-radius: 50%
+    &::after
+        content: ""
+        border: solid var(--grayBorder)
+        border-width: 0 2px 2px 0
+        display: inline-block
+        padding: 3px
+        transform: rotate(45deg) translate(-4px, 1px)
+        -webkit-transform: rotate(45deg) translate(-4px, 1px)
+    &.popoverShow
+        &::after
+            transform: rotate(-135deg) translate(-3px, -3px)
+            -webkit-transform: rotate(-135deg) translate(-3px, -3px)
