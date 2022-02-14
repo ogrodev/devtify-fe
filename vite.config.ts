@@ -1,3 +1,4 @@
+import { defineConfig } from "vite";
 import { VitePWA as pwa } from "vite-plugin-pwa";
 import manifest from "./manifest.json";
 import react from "@vitejs/plugin-react";
@@ -26,7 +27,7 @@ export default defineConfig({
 		}),
 	],
 	build: {
-		sourcemap: false,
+		sourcemap: true,
 		rollupOptions: {
 			output: { manualChunks },
 		},
