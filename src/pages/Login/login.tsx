@@ -28,12 +28,11 @@ export default function Login() {
 	const handleLogin = (data: ILogin) => {
 		setLoggingIn(true);
 		const randomCoins = Math.floor(Math.random() * 100);
-		const generatedAvatarConfig = genConfig({ hairColorRandom: true });
 		const mockedUser: IAuth = {
 			authenticated: true,
 			name: "John Doe",
 			coins: randomCoins,
-			avatar: { type: "generator", config: generatedAvatarConfig, src: "" },
+			avatar: "",
 			title: "Software Engineer",
 			projects: ["Devtify", "Collab"],
 		};

@@ -1,16 +1,16 @@
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import { CLEAR_AUTH } from "../../reducers/auth.reducer";
 import { menuRoutes, routeConfig } from "../../routes/routeConfig";
+import { createImageFromInitials } from "../../utils/imageFromText.util";
 import CollabLogo from "../Logo/collab.logo";
 import styles from "./header.module.sass";
-import { BiStore, BiSearch } from "react-icons/bi";
-import { RiCoinsLine } from "react-icons/ri";
+import { BiSearch, BiStore } from "react-icons/bi";
 import GenericButton from "../Buttons/genericButton";
-import useAuth from "../../hooks/useAuth";
-import { createImageFromInitials } from "../../utils/imageFromText.util";
-import ReactNiceAvatar from "react-nice-avatar";
-import { Popover, PopoverBody, UncontrolledPopover } from "reactstrap";
-import { CLEAR_AUTH } from "../../reducers/auth.reducer";
-import { useRef, useState } from "react";
+import { Popover, PopoverBody } from "reactstrap";
+import { Lottie } from "../Lottie/lottie";
+import coinData from "../Lottie/animations/coin.json";
 
 export default function Header() {
 	const [toggler, setToggler] = useState(false);
@@ -20,10 +20,7 @@ export default function Header() {
 
 	const toggleSearch = () => {};
 	const coins = authState?.coins || 0;
-	const userAvatar =
-		authState?.avatar?.type === "generator"
-			? authState.avatar.config
-			: authState?.avatar?.src || createImageFromInitials(50, authState?.name || "New User", "#0473b1");
+	const userAvatar = authState?.avatar || createImageFromInitials(50, authState?.name || "New User", "#0473b1");
 
 	const handleLogout = () => {
 		updateAuthState(CLEAR_AUTH);
@@ -52,16 +49,12 @@ export default function Header() {
 					<BiSearch size="1.5em" />
 				</GenericButton>
 				<Link to={routeConfig.wallet.path} className={styles.wallet}>
-					<RiCoinsLine size="1.5em" />
+					<Lottie animationData={coinData} width={24} height={24} />
 					<span>{coins}BDC</span>
 				</Link>
 				<div className={styles.profile} id="user-menu" ref={popoverRef}>
 					<div className="avatar">
-						{typeof userAvatar === "string" ? (
-							<img src={userAvatar} alt={authState.name || "User Avatar"} />
-						) : (
-							<ReactNiceAvatar className="avatarGen" {...userAvatar} />
-						)}
+						<img src={userAvatar} alt={authState.name || "User Avatar"} />
 					</div>
 					<span>{authState?.name}</span>
 					<span
