@@ -35,7 +35,7 @@ export default function Marketplace() {
 					<span>You have</span>
 					<div className="d-flex align-items-center gap-2">
 						<Lottie animationData={coinData} width={24} height={24} />
-						<span>{authState.coins} BD</span>
+						<span>{authState.balance} BD</span>
 					</div>
 				</div>
 			</div>
