@@ -1,8 +1,14 @@
 .product
     flex: 0 0 auto
-    width: 25%
     cursor: pointer
     transition: transform 0.2s ease-in-out
+    width: 100%
+    @media (min-width: 768px)
+        width: calc(50% - 12px)
+    @media (min-width: 992px)
+        width: calc(33.3% - 12px)
+    @media (min-width: 1200px)
+        width: calc(25% - 12px)
     .productImg
         width: 100%
         height: auto

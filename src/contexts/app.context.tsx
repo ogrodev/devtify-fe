@@ -15,6 +15,9 @@ const AppStateContext = React.createContext<IAppContext>({
 		notification: {
 			show: false,
 		},
+		modal: {
+			product: false,
+		},
 	},
 	updateAppSettings: () => {},
 	clearAppSettings: () => {},

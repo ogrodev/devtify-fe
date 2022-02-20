@@ -7,4 +7,7 @@ export interface IApp {
 		type?: string;
 		delay?: number;
 	};
+	modal: {
+		product: boolean;
+	};
 }
