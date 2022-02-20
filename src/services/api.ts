@@ -18,8 +18,6 @@ export const setupInterceptor = (token: string, clearAuthState: Function) => {
 					"Content-Type": "application/json",
 					"Access-Control-Allow-Origin": "*",
 					"Cache-Control": "no-cache",
-					"Sec-Fetch-Site": "cross-site",
-					"Sec-Fetch-Mode": "no-cors",
 				};
 				if (authHeader) {
 					config.headers.Authorization = authHeader;
