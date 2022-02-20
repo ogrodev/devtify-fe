@@ -2,26 +2,28 @@ import MainBanner from "../../components/Banner/mainBanner";
 import GenericButton from "../../components/Buttons/genericButton";
 import { FaGraduationCap, FaRegCalendarAlt } from "react-icons/fa";
 import styles from "./workshops.module.sass";
-import mockedWorkshops from "./MockedData/mockedWorkshops.json";
-import mockedHighlight from "./MockedData/mockedHighlight.json";
 import WorkshopCard from "../../components/Cards/workshop.card";
-
-export interface IWorkshop {
-	id: string;
-	title: string;
-	category: string;
-	price: string;
-	author: {
-		name: string;
-		job_title: string;
-		avatar: string;
-	};
-	image: string;
-	liked: boolean;
-	likes: number;
-}
+import { IWorkshop } from "../../interfaces/app.interface";
+import { useEffect } from "react";
+import useSettings from "../../hooks/useSettings";
+import { Spinner } from "reactstrap";
+import CTABanner from "../../components/Banner/ctaBanner";
+import WorkshopIcon from "../../components/Icons/workshop.icon";
+import { TOGGLE_WS_MODAL } from "../../reducers/app.reducer";
+import NewEventModal from "../../components/Modal/newEventModal";
 
 export default function Workshops() {
+	const { settings, updateAppSettings } = useSettings();
+
+	const handleNewWorkshop = () => {
+		updateAppSettings(TOGGLE_WS_MODAL);
+	};
+
+	useEffect(() => {
+		updateAppSettings("FETCH_WORKSHOPS");
+		updateAppSettings("FETCH_HIGHLIGHT_WORKSHOP");
+		// eslint-disable-next-line
+	}, []);
 	return (
 		<>
 			<div className={`position-relative text-start defaultPadding pt-5 ${styles.container}`}>
@@ -42,7 +44,12 @@ export default function Workshops() {
 							</GenericButton>
 						</div>
 						<div className="col-12 col-lg-auto">
-							<GenericButton type="button" variant="cian" className="text-uppercase">
+							<GenericButton
+								type="button"
+								variant="cian"
+								className="text-uppercase"
+								onClick={handleNewWorkshop}
+							>
 								<FaRegCalendarAlt size="1em" />
 								Create your workshop
 							</GenericButton>
@@ -51,14 +58,40 @@ export default function Workshops() {
 				</div>
 			</div>
 			<div className={`${styles.highlight} defaultPadding`}>
-				<WorkshopCard is_highlight {...mockedHighlight} />
+				{!!Object.keys(settings?.highlights?.workshop).length ? (
+					<WorkshopCard is_highlight {...settings?.highlights?.workshop} />
+				) : (
+					<Spinner />
+				)}
 			</div>
-			<div className="d-flex mt-3 flex-wrap align-items-stretch justify-content-between gap-4 defaultPadding">
-				{mockedWorkshops.slice(0, 3).map((workshop: IWorkshop) => (
-					<WorkshopCard key={workshop.id} {...workshop} />
-				))}
+			<div className="d-flex mt-5 flex-wrap align-items-stretch justify-content-between gap-4 defaultPadding">
+				{!!settings?.workshops.length &&
+					settings?.workshops
+						?.slice(0, 3)
+						?.map((workshop: IWorkshop) => <WorkshopCard key={workshop.id} {...workshop} />)}
+				{!settings.workshops.length && (
+					<div className="col-12">
+						<Spinner color="dark">Loading</Spinner>
+					</div>
+				)}
+			</div>
+			<div>
+				<CTABanner
+					icon={<WorkshopIcon />}
+					text="Is teaching your thing? Feel free to create an event for your people."
+				>
+					<FaRegCalendarAlt size="1em" />
+					CREATE EVENT
+				</CTABanner>
+			</div>
+			<div className="d-flex mt-5 flex-wrap align-items-stretch justify-content-between gap-4 defaultPadding">
+				{!!settings?.workshops.length &&
+					settings?.workshops
+						?.slice(3, 6)
+						?.map((workshop: IWorkshop) => <WorkshopCard key={workshop.id} {...workshop} />)}
 			</div>
 			<div className="my-5 py-5" />
+			<NewEventModal />
 		</>
 	);
 }

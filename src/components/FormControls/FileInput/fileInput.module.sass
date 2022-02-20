@@ -1,0 +1,141 @@
+.formContainer
+    width: 100%
+    max-width: 585px
+    @media (min-width: 768px)
+        width: 65%
+
+.dropBox
+    border: 1px dashed var(--grayText)
+    background: var(--white)
+    width: 100%
+    height: auto
+    display: flex
+    flex-flow: column
+    justify-content: center
+    align-items: center
+    cursor: pointer
+    padding: 24px 3%
+    margin: 0 auto
+    box-shadow: 0
+    transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out
+
+.cloudIcon
+    width: 100px
+    height: 100px
+    margin-bottom: 18px
+    border-radius: 50%
+    background: var(--blueBaires)
+    display: flex
+    justify-content: center
+    align-items: center
+    svg
+        width: 100%
+        height: 100%
+        fill: var(--grayBg)
+
+.dropBoxText
+    font-size: 16px
+    font-weight: 500
+    color: var(--black)
+    text-align: center
+    margin-bottom: 18px
+    white-space: nowrap
+    span
+        display: flex
+        flex-wrap: wrap
+        justify-content: center
+        line-height: 24px
+        > button
+            font-size: 16px
+            padding: 0!important
+            background: none!important
+            color: var(--blueBaires)!important
+            text-decoration: underline!important
+            margin: 0!important
+            margin-left: 4px!important
+        @media (min-width: 768px)
+            justify-content: flex-start
+            flex-wrap: nowrap
+
+.inputFile
+    display: none
+
+.dragging
+    border: 1px dashed var(--blueBaires)
+    cursor: default
+    box-shadow: 0 0 10px #0625563f
+
+.videoContainer
+    width: 100%
+    max-width: 500px
+    margin: 0 auto
+    aspect-ratio: 16/9
+    text-align: center
+    video
+        width: 100%
+        height: 100%
+        object-fit: cover
+    button
+        padding: 8px 16px!important
+        min-width: 0!important
+
+.supportText
+    font-size: 14px!important
+    color: var(--white)!important
+    font-weight: 400!important
+    margin: 0!important
+    line-height: 1!important
+
+.loading
+    width: 100%
+    margin: 0 auto
+    display: flex
+    flex-flow: column
+    justify-content: center
+    align-items: center
+    > div
+        width: 100%
+    h2
+        font-size: 22px!important
+    span
+        font-size: 16px!important
+        color: var(--white)!important
+        font-weight: 400!important
+        margin: 0!important
+        line-height: 1!important
+
+.thumbnailContainer
+    width: 100%
+    max-width: 500px
+    margin: 0 auto
+    margin-top: 12px
+    aspect-ratio: 16/9
+    text-align: start
+    img
+        width: 100%
+        height: 100%
+        object-fit: cover
+    span
+        font-size: 18px
+        font-weight: 400!important
+
+.thumbnailInfo
+    font-size: 20px!important
+    font-weight: 400!important
+    color: var(--cpNavy)!important
+
+.thumbnailHelper, .thumbnailOr
+    font-size: 14px!important
+    display: block
+    font-weight: 400!important
+    flex: 0 0 100%
+    text-align: start
+
+.thumbnailOr
+    text-align: center
+    font-weight: 600!important
+
+.thumbChooseContainer
+    width: 100%
+    display: flex
+    flex-wrap: wrap

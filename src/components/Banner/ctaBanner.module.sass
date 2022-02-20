@@ -1,0 +1,41 @@
+.container
+    display: flex
+    align-items: center
+    justify-content: center
+    flex-wrap: wrap
+    background: var(--blueBaires)
+    min-height: 100px
+    margin: 75px 0
+    padding-top: 50px
+    padding-bottom: 50px
+    @media (min-width: 992px)
+        justify-content: space-between
+        flex-wrap: nowrap
+        gap: 8px
+
+.icon
+    flex: 0 0 100%
+    width: 100%
+    position: relative
+    > svg
+        position: absolute
+        top: calc(250px / 2 * -1 + 5px)
+        left: 0
+        width: 250px
+        height: 250px
+    @media (min-width: 992px)
+        flex: 0 0 auto
+        margin-bottom: auto
+        width: 250px
+        height: 100%
+
+.text
+    width: clamp(50px, 1fr, 1fr)
+    font-weight: 600
+    color: var(--white)
+
+.btn
+    flex: 0 0 100%
+    width: auto
+    @media (min-width: 992px)
+        flex: 0 0 auto

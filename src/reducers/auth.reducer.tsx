@@ -4,7 +4,8 @@ import { IAuth } from "../interfaces/auth.interface";
 export const UPDATE_AUTH = "APP/AUTH/UPDATE";
 export const CLEAR_AUTH = "APP/AUTH/CLEAR";
 
-export const parsedLocalAuth: IAuth | null = getLocalStorage("authState") || null;
+export const parsedLocalAuth: IAuth | null =
+	getLocalStorage("authState") || (sessionStorage.authState && JSON.parse(sessionStorage.authState)) || null;
 export const initialAuthState: IAuth = parsedLocalAuth || { authenticated: false };
 
 interface IAction {
@@ -15,7 +16,6 @@ interface IAction {
 export const authReducer = (state: IAuth = initialAuthState, action: IAction) => {
 	switch (action.type) {
 		case UPDATE_AUTH:
-			console.log(action.payload);
 			{
 				action.payload?.persist
 					? setLocalStorage("authState", {

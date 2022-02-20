@@ -11,6 +11,7 @@ import GenericButton from "../Buttons/genericButton";
 import { Popover, PopoverBody } from "reactstrap";
 import { Lottie } from "../Lottie/lottie";
 import coinData from "../Lottie/animations/coin.json";
+import { authService } from "../../services/auth";
 
 export default function Header() {
 	const [toggler, setToggler] = useState(false);
@@ -24,7 +25,9 @@ export default function Header() {
 	const userAvatar = authState?.avatar || createImageFromInitials(50, authState?.name || "New User", "#0473b1");
 
 	const handleLogout = () => {
-		updateAuthState(CLEAR_AUTH);
+		authService.logout().then(() => {
+			updateAuthState(CLEAR_AUTH);
+		});
 	};
 
 	useEffect(() => {
