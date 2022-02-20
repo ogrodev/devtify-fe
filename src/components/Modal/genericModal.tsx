@@ -3,8 +3,8 @@ import useSettings from "../../hooks/useSettings";
 
 interface IProps {
 	modalType: string;
-	title: string;
 	children: React.ReactNode | React.ReactNode[];
+	title?: string;
 	footer?: React.ReactNode | React.ReactNode[];
 }
 export default function GenericModal(props: IProps) {
@@ -15,7 +15,7 @@ export default function GenericModal(props: IProps) {
 	};
 
 	return (
-		<Modal toggle={() => toggleModal()}>
+		<Modal isOpen={settings.modal[props.modalType] || false} toggle={() => toggleModal()}>
 			<ModalHeader toggle={() => toggleModal()}>{props.title}</ModalHeader>
 			<ModalBody>{props.children}</ModalBody>
 			{props.footer && <ModalFooter>{props.footer}</ModalFooter>}

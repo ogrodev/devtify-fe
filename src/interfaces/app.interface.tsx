@@ -8,6 +8,6 @@ export interface IApp {
 		delay?: number;
 	};
 	modal: {
-		product: boolean;
+		[key: string]: boolean;
 	};
 }

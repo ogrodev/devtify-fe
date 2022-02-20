@@ -43,7 +43,7 @@ export default function Login() {
 
 	const handleLogin = (data: ILogin) => {
 		setLoggingIn(true);
-		const randomNumber = Math.floor(Math.random() * 100);
+		/* const randomNumber = Math.floor(Math.random() * 100);
 		const mockedAuth: IAuth = {
 			email: "pedroh.seven@gmail.com",
 			id: "5e9f8f9b-f8b8-4f7b-b8e0-f8f8f8f8f8f8",
@@ -57,8 +57,8 @@ export default function Login() {
 		};
 		updateAuthState(UPDATE_AUTH, mockedAuth);
 		setLoggingIn(false);
-		navigate(routeConfig.home.path);
-		/* authService
+		navigate(routeConfig.home.path); */
+		authService
 			.tryLogin(data.email, data.password)
 			.then((res: AxiosResponse) => {
 				const auth: IAuth = res.data;
@@ -69,7 +69,7 @@ export default function Login() {
 			.catch((error: AxiosError) => {
 				notify(error.response?.data?.message || "An error occurred while logging in.", "Error");
 				setLoggingIn(false);
-			}); */
+			});
 
 		return () => {
 			setLoggingIn(false);

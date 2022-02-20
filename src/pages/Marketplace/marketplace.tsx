@@ -8,6 +8,7 @@ import ProductCard from "../../components/Cards/product.card";
 import { FormProvider, useForm } from "react-hook-form";
 import TextArea from "../../components/FormControls/TextArea/TextArea";
 import GenericButton from "../../components/Buttons/genericButton";
+import { BiStore } from "react-icons/bi";
 
 interface IFormData {
 	message: string;
@@ -26,7 +27,9 @@ export default function Marketplace() {
 			<MainBanner />
 			<div className="d-flex justify-content-between align-items-center">
 				<div className={styles.titleContainer}>
-					<h2>Marketplace</h2>
+					<h2>
+						<BiStore size="1.5em" /> The Marketplace
+					</h2>
 					<span>Here you can trade your DB Coins for rewards</span>
 				</div>
 				<div className={styles.coinContainer}>
@@ -42,8 +45,9 @@ export default function Marketplace() {
 					return <ProductCard product={product} key={product.id} />;
 				})}
 			</div>
+			<div className="pt-5 mt-5" />
 			<div className="my-5">
-				<div className="my-3">
+				<div className="mb-3">
 					<h5>Our marketplace continues to grow</h5>
 					<span>What would you like to be able to get through your BDCoins?</span>
 				</div>
