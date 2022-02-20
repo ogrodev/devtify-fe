@@ -1,5 +1,6 @@
 import { RiTimerFill } from "react-icons/ri";
 import useAuth from "../../hooks/useAuth";
+import MainBanner from "../Banner/mainBanner";
 import GenericButton from "../Buttons/genericButton";
 import styles from "./hero.module.sass";
 import mockedPost from "./MockedData/mockedPost.json";
@@ -8,7 +9,7 @@ export default function HeroSection() {
 	const { authState } = useAuth();
 	return (
 		<>
-			<div className={styles.bannerBg} style={{ backgroundImage: `url(/images/app/bg_main.jpg)` }} />
+			<MainBanner />
 			<div className={styles.welcome}>
 				<h2>Hey {authState.name}!</h2>
 			</div>
@@ -36,8 +37,16 @@ export default function HeroSection() {
 					<div className={styles.timerIcon}>
 						<RiTimerFill size={100} />
 					</div>
-					<span>Challenge of the day</span>
-					<div className="d-flex justify-content-end">
+					<div className="text-left w-100 mb-3">
+						<h4>Challenge of the day</h4>
+					</div>
+					<p>
+						Post one thing you think every newcomer on BairesDev should know about, in #general on Slack.
+						<br />
+						<br />
+						Come back here and paste your message link to win the reward.
+					</p>
+					<div className="d-flex justify-content-end mt-auto w-100">
 						<GenericButton type="button" variant="cian">
 							<span className="text-uppercase">Solve for 10 BD</span>
 						</GenericButton>

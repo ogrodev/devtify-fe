@@ -4,7 +4,7 @@ export const UPDATE_APP = "APP/UPDATE";
 export const TOGGLE_THEME = "APP/TOGGLE_THEME";
 export const CLEAR_APP = "APP/CLEAR";
 
-export const initialAppState: IApp = { theme: "light" } as IApp;
+export const initialAppState: IApp = { theme: "light", notification: { show: false } } as IApp;
 
 interface IAction {
 	type: string;

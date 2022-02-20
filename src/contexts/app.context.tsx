@@ -12,6 +12,9 @@ export interface IAppContext {
 const AppStateContext = React.createContext<IAppContext>({
 	settings: {
 		theme: "light",
+		notification: {
+			show: false,
+		},
 	},
 	updateAppSettings: () => {},
 	clearAppSettings: () => {},

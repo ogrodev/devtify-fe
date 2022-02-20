@@ -50,7 +50,7 @@ export default function Header() {
 				</GenericButton>
 				<Link to={routeConfig.wallet.path} className={styles.wallet}>
 					<Lottie animationData={coinData} width={24} height={24} />
-					<span>{coins}BDC</span>
+					<span>{coins} BD</span>
 				</Link>
 				<div className={styles.profile} id="user-menu" ref={popoverRef}>
 					<div className="avatar">
