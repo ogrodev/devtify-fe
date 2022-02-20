@@ -9,4 +9,5 @@ export interface IAuth {
 	job_title?: string;
 	project_name?: string;
 	linkedin_url?: string;
+	persist?: boolean;
 }

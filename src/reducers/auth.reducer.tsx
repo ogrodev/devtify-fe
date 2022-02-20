@@ -15,7 +15,18 @@ interface IAction {
 export const authReducer = (state: IAuth = initialAuthState, action: IAction) => {
 	switch (action.type) {
 		case UPDATE_AUTH:
-			setLocalStorage("authState", action.payload);
+			console.log(action.payload);
+			{
+				action.payload?.persist
+					? setLocalStorage("authState", {
+							...state,
+							...action.payload,
+					  })
+					: (sessionStorage.authState = JSON.stringify({
+							...state,
+							...action.payload,
+					  }));
+			}
 			return {
 				...state,
 				...action.payload,

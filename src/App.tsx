@@ -12,6 +12,10 @@ import Layout from "./pages/Layout/Layout";
 import Page404 from "./pages/404/404";
 import Home from "./pages/Home/home.protected";
 import NotificationToast from "./components/Notification/notification";
+import News from "./pages/Posts/news";
+import Post from "./pages/Posts/post";
+import OpenSource from "./pages/OpenSource/OpenSource";
+import Workshops from "./pages/Workshops/workshops";
 
 const Marketplace = React.lazy(() => import("./pages/Marketplace/marketplace"));
 
@@ -35,6 +39,38 @@ function App() {
 						element={
 							<RequireAuth>
 								<Marketplace />
+							</RequireAuth>
+						}
+					/>
+					<Route
+						path="news"
+						element={
+							<RequireAuth>
+								<News />
+							</RequireAuth>
+						}
+					/>
+					<Route
+						path="post/:id"
+						element={
+							<RequireAuth>
+								<Post />
+							</RequireAuth>
+						}
+					/>
+					<Route
+						path="open-source"
+						element={
+							<RequireAuth>
+								<OpenSource />
+							</RequireAuth>
+						}
+					/>
+					<Route
+						path="workshops"
+						element={
+							<RequireAuth>
+								<Workshops />
 							</RequireAuth>
 						}
 					/>
