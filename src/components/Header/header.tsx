@@ -21,7 +21,7 @@ export default function Header() {
 	const popoverRef = useRef<HTMLDivElement>(null);
 
 	const toggleSearch = () => {};
-	const coins = authState?.coins || 0;
+	const coins = authState?.balance || 0;
 	const userAvatar = authState?.avatar || createImageFromInitials(50, authState?.name || "New User", "#0473b1");
 
 	const handleLogout = () => {

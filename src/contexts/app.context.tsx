@@ -22,11 +22,7 @@ const AppStateContext = React.createContext<IAppContext>({
 		workshops: [],
 		highlights: {
 			workshop: {} as IWorkshop,
-			news: {} as INews,
-			openSourceProject: {} as IOpenSourceProject,
 		},
-		news: [],
-		openSourceProjects: [],
 	},
 	updateAppSettings: () => {},
 	clearAppSettings: () => {},

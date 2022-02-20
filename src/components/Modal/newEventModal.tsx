@@ -130,7 +130,7 @@ export default function NewEventModal() {
 											</GenericButton>
 										</div>
 									) : (
-										<FileInput onSelect={(file) => setFile(file)} />
+										<FileInput onSelect={(file: string) => setFile(file)} />
 									)}
 								</div>
 								<div className="d-flex gap-2 align-items-center my-3">
