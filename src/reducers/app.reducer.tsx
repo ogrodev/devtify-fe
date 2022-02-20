@@ -16,12 +16,8 @@ export const initialAppState: IApp = sessionStorage.settings
 				product: false,
 			},
 			workshops: [],
-			news: [],
-			openSourceProjects: [],
 			highlights: {
 				workshop: {} as IWorkshop,
-				news: {} as INews,
-				openSourceProject: {} as IOpenSourceProject,
 			},
 	  } as IApp);
 

@@ -13,13 +13,11 @@ export interface IApp {
 		[key: string]: boolean;
 	};
 	workshops: IWorkshop[];
-	news: INews[];
-	openSourceProjects: IOpenSourceProject[];
-	highlights: {
-		workshop: IWorkshop;
-		news: INews;
-		openSourceProject: IOpenSourceProject;
-	};
+	highlights: IHighlights;
+}
+
+interface IHighlights {
+	workshop: IWorkshop;
 }
 
 export interface IWorkshop {

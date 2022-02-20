@@ -5,7 +5,7 @@ import { workshopService } from "../../services/workshop";
 import GenericButton from "../Buttons/genericButton";
 import Checkbox from "../FormControls/Checkbox/checkbox";
 import DateInput from "../FormControls/DateInput/DateInput";
-import FileInput from "../FormControls/FileInput/fileinput";
+import FileInput from "../FormControls/FileInput/fileInput";
 import TextArea from "../FormControls/TextArea/TextArea";
 import TextInput from "../FormControls/TextInput/TextInput";
 import { Lottie } from "../Lottie/lottie";
@@ -130,7 +130,7 @@ export default function NewEventModal() {
 											</GenericButton>
 										</div>
 									) : (
-										<FileInput onSelect={(file) => setFile(file)} />
+										<FileInput onSelect={(file: string) => setFile(file)} />
 									)}
 								</div>
 								<div className="d-flex gap-2 align-items-center my-3">
