@@ -9,6 +9,7 @@ export function apiService(options: any) {
 	const fetchOptions: RequestInit = {
 		method,
 		headers: {
+			Accept: "application/json",
 			"Content-Type": "application/json",
 			...headers,
 			...(authHeader ? { Authorization: authHeader } : {}),

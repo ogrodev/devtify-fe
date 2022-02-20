@@ -45,9 +45,9 @@ export default function Header() {
 					<BiStore size="1.5em" />
 					<span>Marketplace</span>
 				</Link>
-				<GenericButton type="button" onClick={toggleSearch} variant="text">
+				{/* <GenericButton type="button" onClick={toggleSearch} variant="text">
 					<BiSearch size="1.5em" />
-				</GenericButton>
+				</GenericButton> */}
 				<Link to={routeConfig.wallet.path} className={styles.wallet}>
 					<Lottie animationData={coinData} width={24} height={24} />
 					<span>{coins} BD</span>
