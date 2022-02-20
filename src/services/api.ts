@@ -4,14 +4,14 @@ import { getAuthHeader } from "../utils/auth.util";
 
 const axiosInstance: AxiosInstance = axios.create();
 
-export const setupInterceptor = (clearAuthState: Function) => {
+export const setupInterceptor = (token: string, clearAuthState: Function) => {
 	axiosInstance.interceptors.request.use(
 		(config: AxiosRequestConfig) =>
 			new Promise((resolve) => {
 				config.withCredentials = true;
 				config.xsrfCookieName = "XSRF-TOKEN";
 				config.xsrfHeaderName = "X-XSRF-TOKEN";
-				const authHeader = getAuthHeader();
+				const authHeader = getAuthHeader(token);
 				config.headers = {
 					...config.headers,
 					Accept: "application/json",
@@ -20,8 +20,10 @@ export const setupInterceptor = (clearAuthState: Function) => {
 					"Cache-Control": "no-cache",
 					"Sec-Fetch-Site": "cross-site",
 					"Sec-Fetch-Mode": "no-cors",
-					...(authHeader ? { Authorization: authHeader } : {}),
 				};
+				if (authHeader) {
+					config.headers.Authorization = authHeader;
+				}
 				resolve(config);
 			}),
 		(error: AxiosError) => {
@@ -34,15 +36,12 @@ export const setupInterceptor = (clearAuthState: Function) => {
 			return response;
 		},
 		(error: AxiosError) => {
-			if (error.response && error.response.status === 419) {
-				if (error?.response?.status === 419) {
-					axios.get("/csrf-token");
-					return axios(error.response.config);
-				}
+			if (error?.response?.status === 419) {
+				axios.get("/csrf-token");
+				return axios(error.response.config);
 			}
 			if (error?.response?.status === 401) {
-				clearAuthState();
-				return Promise.reject(EXPIRED_TOKEN_MSG);
+				return axios(error.response.config);
 			} else if (error?.response?.status === 403) {
 				return Promise.reject(INVALID_TOKEN_MSG);
 			} else {

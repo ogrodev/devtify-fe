@@ -1,5 +1,6 @@
 import React, { Dispatch, Reducer, useReducer } from "react";
-import { IApp } from "../interfaces/app.interface";
+import useAppMiddleware from "../hooks/useAppMiddleware";
+import { IApp, INews, IOpenSourceProject, IWorkshop } from "../interfaces/app.interface";
 import { CLEAR_APP } from "../reducers/app.reducer";
 
 export interface IAppContext {
@@ -18,6 +19,14 @@ const AppStateContext = React.createContext<IAppContext>({
 		modal: {
 			product: false,
 		},
+		workshops: [],
+		highlights: {
+			workshop: {} as IWorkshop,
+			news: {} as INews,
+			openSourceProject: {} as IOpenSourceProject,
+		},
+		news: [],
+		openSourceProjects: [],
 	},
 	updateAppSettings: () => {},
 	clearAppSettings: () => {},
@@ -32,9 +41,20 @@ interface IProvider {
 
 export const AppStateProvider = ({ children, reducer, initialState }: IProvider) => {
 	const [globalAppState, appDispatch] = useReducer<Reducer<IApp, any>>(reducer, initialState);
+	const { fetchWorkshops, fetchHighlightWorkshop } = useAppMiddleware();
 
 	const updateAppSettings = (type: string, payload: IApp) => {
-		return appDispatch({ type, payload });
+		switch (type) {
+			case "FETCH_WORKSHOPS":
+				fetchWorkshops(appDispatch);
+				break;
+			case "FETCH_HIGHLIGHT_WORKSHOP":
+				fetchHighlightWorkshop(appDispatch);
+				break;
+			default:
+				appDispatch({ type, payload });
+				break;
+		}
 	};
 
 	const clearAppSettings = () => {

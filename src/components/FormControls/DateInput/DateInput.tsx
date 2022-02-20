@@ -2,7 +2,6 @@ import { Controller, useFormContext, Validate } from "react-hook-form";
 
 interface IProps {
 	id: string;
-	type?: string;
 	className?: string;
 	label?: string;
 	placeholder?: string;
@@ -15,7 +14,7 @@ interface IProps {
 	value?: string;
 }
 
-export default function TextInput(props: IProps) {
+export default function DateInput(props: IProps) {
 	const { control } = useFormContext();
 	return (
 		<Controller
@@ -31,7 +30,7 @@ export default function TextInput(props: IProps) {
 							onChange(e);
 							props.onChange && props.onChange(e);
 						}}
-						type={props.type ? props.type : props.isPassword ? "password" : "text"}
+						type={"datetime-local"}
 						onBlur={
 							props.onBlur
 								? (e) => {

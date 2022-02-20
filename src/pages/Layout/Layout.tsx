@@ -9,10 +9,10 @@ export default function Layout() {
 	const location = useLocation();
 	const isLogin = location.pathname === "/";
 	const { settings } = useSettings();
-	const { clearAuthState } = useAuth();
+	const { authState, clearAuthState } = useAuth();
 
 	useEffect(() => {
-		setupInterceptor(clearAuthState);
+		setupInterceptor(authState.token || "", clearAuthState);
 		// eslint-disable-next-line
 	}, []);
 

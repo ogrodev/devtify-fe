@@ -9,7 +9,7 @@ interface IProps {
 	showError?: boolean;
 	helperText?: string;
 	className?: string;
-	value?: boolean;
+	value?: string;
 	isRequired?: boolean;
 	validationSchema?: Validate<any>;
 	children: React.ReactChild;

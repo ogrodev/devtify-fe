@@ -19,7 +19,6 @@ export default function Marketplace() {
 	const methods = useForm<IFormData>();
 
 	const sendMsg = (data: IFormData) => {
-		console.log(data);
 		// Make a request to API to save feedback
 	};
 	return (
