@@ -11,7 +11,7 @@ class AuthService {
 
 		return apiService({
 			method: "POST",
-			url: SERVER_API_BASE_V1 + "login/",
+			url: SERVER_API_BASE_V1 + "login",
 			data: json,
 		});
 	}
@@ -19,7 +19,7 @@ class AuthService {
 	logout(): AxiosPromise<any> {
 		return apiService({
 			method: "POST",
-			url: SERVER_API_BASE_V1 + "logout/",
+			url: SERVER_API_BASE_V1 + "logout",
 		});
 	}
 
@@ -44,7 +44,7 @@ class AuthService {
 
 		return apiService({
 			method: "post",
-			url: SERVER_API_BASE_V1 + "signup/",
+			url: SERVER_API_BASE_V1 + "signup",
 			data: json,
 		});
 	}
@@ -56,7 +56,7 @@ class AuthService {
 
 		return apiService({
 			method: "post",
-			url: SERVER_API_BASE_V1 + "forgot-password/",
+			url: SERVER_API_BASE_V1 + "forgot-password",
 			data: json,
 		});
 	}

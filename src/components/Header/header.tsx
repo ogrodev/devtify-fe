@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { CLEAR_AUTH } from "../../reducers/auth.reducer";
 import { menuRoutes, routeConfig } from "../../routes/routeConfig";
@@ -16,6 +16,7 @@ export default function Header() {
 	const [toggler, setToggler] = useState(false);
 
 	const { authState, updateAuthState } = useAuth();
+	const navigate = useNavigate();
 	const popoverRef = useRef<HTMLDivElement>(null);
 
 	const toggleSearch = () => {};
@@ -25,6 +26,12 @@ export default function Header() {
 	const handleLogout = () => {
 		updateAuthState(CLEAR_AUTH);
 	};
+
+	useEffect(() => {
+		if (!authState.authenticated) {
+			navigate(routeConfig.login.path);
+		}
+	}, [authState.authenticated]);
 
 	return (
 		<div className="d-flex py-4 defaultPadding">

@@ -1,0 +1,15 @@
+{
+    "id": "4",
+    "title": "Workshop mocked 4",
+    "category": "Category 1",
+    "price": "0",
+    "author": {
+        "name": "Patricia Parrela",
+        "avatar": "",
+        "linkedin_url": "https://www.linkedin.com/in/inpedromendes/",
+        "job_title": "UI Designer"
+    },
+    "image" : "https://source.unsplash.com/random/800x800?development,technology",
+    "liked": false,
+    "likes": 245
+}

@@ -9,12 +9,17 @@ export const setupInterceptor = (clearAuthState: Function) => {
 		(config: AxiosRequestConfig) =>
 			new Promise((resolve) => {
 				config.withCredentials = true;
+				config.xsrfCookieName = "XSRF-TOKEN";
+				config.xsrfHeaderName = "X-XSRF-TOKEN";
 				const authHeader = getAuthHeader();
 				config.headers = {
 					...config.headers,
 					Accept: "application/json",
 					"Content-Type": "application/json",
 					"Access-Control-Allow-Origin": "*",
+					"Cache-Control": "no-cache",
+					"Sec-Fetch-Site": "cross-site",
+					"Sec-Fetch-Mode": "no-cors",
 					...(authHeader ? { Authorization: authHeader } : {}),
 				};
 				resolve(config);
