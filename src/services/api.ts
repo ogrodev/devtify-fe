@@ -1,38 +1,50 @@
+import axios, { AxiosInstance, AxiosError, AxiosResponse, AxiosRequestConfig } from "axios";
 import { EXPIRED_TOKEN_MSG, INVALID_TOKEN_MSG } from "../constants/errorMessages.constant";
-import { getAuthHeader } from "../utils/auth";
+import { getAuthHeader } from "../utils/auth.util";
 
-export function apiService(options: any) {
-	const { method, url, data, headers } = options;
+const axiosInstance: AxiosInstance = axios.create();
 
-	const authHeader: string = getAuthHeader();
+export const setupInterceptor = (clearAuthState: Function) => {
+	axiosInstance.interceptors.request.use(
+		(config: AxiosRequestConfig) =>
+			new Promise((resolve) => {
+				config.withCredentials = true;
+				const authHeader = getAuthHeader();
+				config.headers = {
+					...config.headers,
+					Accept: "application/json",
+					"Content-Type": "application/json",
+					"Access-Control-Allow-Origin": "*",
+					...(authHeader ? { Authorization: authHeader } : {}),
+				};
+				resolve(config);
+			}),
+		(error: AxiosError) => {
+			return Promise.reject(error);
+		}
+	);
 
-	const fetchOptions: RequestInit = {
-		method,
-		headers: {
-			Accept: "application/json",
-			"Content-Type": "application/json",
-			...headers,
-			...(authHeader ? { Authorization: authHeader } : {}),
+	axiosInstance.interceptors.response.use(
+		(response: AxiosResponse) => {
+			return response;
 		},
-	};
-
-	if (data) {
-		fetchOptions.body = JSON.stringify(data);
-	}
-
-	return fetch(url, fetchOptions)
-		.then((response) => {
-			if (response.status === 401) {
-				throw new Error(INVALID_TOKEN_MSG);
-			} else if (response.status === 403) {
-				throw new Error(EXPIRED_TOKEN_MSG);
-			} else if (response.status !== 200) {
-				throw new Error(response.statusText);
+		(error: AxiosError) => {
+			if (error.response && error.response.status === 419) {
+				if (error?.response?.status === 419) {
+					axios.get("/csrf-token");
+					return axios(error.response.config);
+				}
 			}
+			if (error?.response?.status === 401) {
+				clearAuthState();
+				return Promise.reject(EXPIRED_TOKEN_MSG);
+			} else if (error?.response?.status === 403) {
+				return Promise.reject(INVALID_TOKEN_MSG);
+			} else {
+				return Promise.reject(error);
+			}
+		}
+	);
+};
 
-			return response.json();
-		})
-		.catch((error) => {
-			throw error;
-		});
-}
+export const apiService = axiosInstance;

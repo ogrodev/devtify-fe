@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="242.019" height="117.901" viewBox="0 0 242.019 117.901">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Retângulo_653" data-name="Retângulo 653" width="248.019" height="107.776" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Grupo_138" data-name="Grupo 138" transform="translate(0 16.125)">
+    <g id="Grupo_135" data-name="Grupo 135">
+      <g id="Grupo_134" data-name="Grupo 134" clip-path="url(#clip-path)">
+        <text id="C" transform="translate(0 70.875)" fill="#3cbfbd" font-size="81" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">C</tspan></text>
+      </g>
+    </g>
+    <text id="OL" transform="translate(35.315 70.875)" fill="#3cbfbd" font-size="81" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">OL</tspan></text>
+    <text id="LAB" transform="translate(93.312 70.875)" fill="#0272b1" font-size="81" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">LAB</tspan></text>
+  </g>
+</svg>
