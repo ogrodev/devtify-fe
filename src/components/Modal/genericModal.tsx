@@ -8,16 +8,15 @@ interface IProps {
 	footer?: React.ReactNode | React.ReactNode[];
 }
 export default function GenericModal(props: IProps) {
-	const { settings, updateAppSettings } = useSettings();
+	const { settings, toggleModal } = useSettings();
 
-	const toggleModal = () => {
-		console.log("APP/MODAL/" + props.modalType.toUpperCase());
-		updateAppSettings("APP/MODAL/" + props.modalType.toUpperCase());
+	const handleToggleModal = () => {
+		toggleModal(props.modalType);
 	};
 
 	return (
-		<Modal isOpen={settings.modal[props.modalType]} toggle={() => toggleModal()}>
-			{props.title && <ModalHeader toggle={() => toggleModal()}>{props.title}</ModalHeader>}
+		<Modal centered isOpen={settings.modal[props.modalType]} toggle={() => handleToggleModal()}>
+			{props.title && <ModalHeader toggle={() => handleToggleModal()}>{props.title}</ModalHeader>}
 			<ModalBody>{props.children}</ModalBody>
 			{props.footer && <ModalFooter>{props.footer}</ModalFooter>}
 		</Modal>

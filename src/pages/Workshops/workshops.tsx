@@ -79,6 +79,7 @@ export default function Workshops() {
 				<CTABanner
 					icon={<WorkshopIcon />}
 					text="Is teaching your thing? Feel free to create an event for your people."
+					onClick={handleNewWorkshop}
 				>
 					<FaRegCalendarAlt size="1em" />
 					CREATE EVENT

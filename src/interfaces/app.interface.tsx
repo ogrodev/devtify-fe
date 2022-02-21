@@ -14,10 +14,12 @@ export interface IApp {
 	};
 	workshops: IWorkshop[];
 	highlights: IHighlights;
+	products: IProduct[];
 }
 
 interface IHighlights {
 	workshop: IWorkshop;
+	products: IProduct[];
 }
 
 export interface IWorkshop {
@@ -39,17 +41,13 @@ export interface IWorkshop {
 	updated_at: string;
 }
 
-export interface INews {
-	id: string;
+export interface IProduct {
+	id: number;
 	title: string;
-	category: string;
 	description: string;
-}
-
-export interface IOpenSourceProject {
-	id: string;
-	title: string;
-	category: string;
-	description: string;
-	link: string;
+	price: number;
+	thumbnail_url: string;
+	highlighted: number;
+	created_at: string;
+	updated_at: string;
 }

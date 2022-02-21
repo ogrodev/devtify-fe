@@ -1,9 +1,10 @@
-import { IApp, INews, IOpenSourceProject, IWorkshop } from "../interfaces/app.interface";
+import { IApp, IWorkshop } from "../interfaces/app.interface";
 
 export const UPDATE_APP = "APP/UPDATE";
 export const UPDATE_HIGHLIGHTS = "APP/UPDATE/HIGHLIGHTS";
 export const TOGGLE_THEME = "APP/TOGGLE_THEME";
-export const TOGGLE_PRODUCT_MODAL = "APP/MODAL/PRODUCT";
+export const TOGGLE_MODAL = "APP/MODAL/";
+export const TOGGLE_PURCHASE_MODAL = "APP/MODAL/PURCHASE";
 export const TOGGLE_WS_MODAL = "APP/MODAL/WORKSHOP";
 export const CLEAR_APP = "APP/CLEAR";
 
@@ -16,14 +17,17 @@ export const initialAppState: IApp = sessionStorage.settings
 				product: false,
 			},
 			workshops: [],
+			products: [],
 			highlights: {
 				workshop: {} as IWorkshop,
+				products: [],
 			},
 	  } as IApp);
 
 interface IAction {
 	type: string;
 	payload?: IApp | string;
+	modalTrigger?: string;
 }
 
 export const appReducer = (state: IApp = initialAppState, action: IAction) => {
@@ -57,7 +61,7 @@ export const appReducer = (state: IApp = initialAppState, action: IAction) => {
 			sessionStorage.settings = JSON.stringify({ ...state, theme: state.theme === "light" ? "dark" : "light" });
 			return { ...state, theme: state.theme === "light" ? "dark" : "light" };
 
-		case TOGGLE_PRODUCT_MODAL:
+		case TOGGLE_PURCHASE_MODAL:
 			sessionStorage.settings = JSON.stringify({
 				...state,
 				modal: {
@@ -86,6 +90,22 @@ export const appReducer = (state: IApp = initialAppState, action: IAction) => {
 				modal: {
 					...state.modal,
 					workshop: !state.modal.workshop,
+				},
+			};
+
+		case TOGGLE_MODAL:
+			sessionStorage.settings = JSON.stringify({
+				...state,
+				modal: {
+					...state.modal,
+					[action?.modalTrigger!]: !!!state.modal[action?.modalTrigger!],
+				},
+			});
+			return {
+				...state,
+				modal: {
+					...state.modal,
+					[action.modalTrigger!]: !!!state.modal[action.modalTrigger!],
 				},
 			};
 

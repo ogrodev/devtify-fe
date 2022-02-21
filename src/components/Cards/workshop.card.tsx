@@ -2,15 +2,25 @@ import styles from "./workshop.card.module.sass";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { createImageFromInitials } from "../../utils/imageFromText.util";
 import { IWorkshop } from "../../interfaces/app.interface";
+import { useNavigate } from "react-router-dom";
+import { routeConfig } from "../../routes/routeConfig";
 
 interface IProps extends IWorkshop {
 	is_highlight?: boolean;
 }
 
 export default function WorkshopCard(props: IProps) {
+	const navigate = useNavigate();
+
 	const userAvatar = props?.user?.avatar
 		? props?.user?.avatar
 		: createImageFromInitials(40, props?.user?.name || "User", "#0473b1");
+
+	const goToWS = () => {
+		if (!props.id) return;
+		navigate(routeConfig.workshop.path.replace(":id", props.id));
+	};
+
 	return (
 		<div className={props?.is_highlight ? "col-12" : styles.cardContainer}>
 			<div className="d-flex align-items-center flex-wrap gap-1">
@@ -33,7 +43,7 @@ export default function WorkshopCard(props: IProps) {
 						</span>
 					)}
 					<span className={styles.category}>{props?.skills}</span>
-					<div>
+					<div className={styles.title} onClick={goToWS}>
 						{props?.is_highlight ? <h3>{props?.title}</h3> : <h4>{props?.title}</h4>}
 						<span className={styles.priceBadge}>{props?.price === 0 && "Free"}</span>
 					</div>

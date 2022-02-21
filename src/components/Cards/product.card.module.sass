@@ -3,6 +3,8 @@
     cursor: pointer
     transition: transform 0.2s ease-in-out
     width: 100%
+    display: flex
+    flex-direction: column
     @media (min-width: 768px)
         width: calc(50% - 12px)
     @media (min-width: 992px)
@@ -10,6 +12,7 @@
     @media (min-width: 1200px)
         width: calc(25% - 12px)
     .productImg
+        flex: 0 0 auto
         width: 100%
         height: auto
         aspect-ratio: 20/9
@@ -18,6 +21,10 @@
             height: 100%
             object-fit: cover
     .productInfo
+        flex: 1 0 auto
+        display: flex
+        flex-direction: column
+        justify-content: space-between
         background: var(--black)
         padding: 16px
         color: var(--white)
