@@ -1,5 +1,6 @@
 import { Dispatch } from "react";
 import { UPDATE_APP, UPDATE_HIGHLIGHTS } from "../reducers/app.reducer";
+import { marketplaceService } from "../services/marketplace";
 import { workshopService } from "../services/workshop";
 
 export default function useAppMiddleware() {
@@ -15,5 +16,17 @@ export default function useAppMiddleware() {
 		});
 	};
 
-	return { fetchWorkshops, fetchHighlightWorkshop };
+	const fetchProducts = (appDispatch: Dispatch<any>) => {
+		marketplaceService.getProducts().then((response) => {
+			appDispatch({ type: UPDATE_APP, payload: { products: response.data.items } });
+		});
+	};
+
+	const fetchHighlightProducts = (appDispatch: Dispatch<any>) => {
+		marketplaceService.getHighlightProducts().then((response) => {
+			appDispatch({ type: UPDATE_HIGHLIGHTS, payload: { products: response.data } });
+		});
+	};
+
+	return { fetchWorkshops, fetchHighlightWorkshop, fetchProducts, fetchHighlightProducts };
 }

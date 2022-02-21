@@ -9,6 +9,10 @@ button
     transition: transform .2s ease-in-out
     &:hover
         transform: scale(1.05)
+    &:disabled
+        background: var(--grayText)!important
+        color: var(--white)!important
+        cursor: not-allowed!important
 
 .purpleBtn
     background: var(--purple)

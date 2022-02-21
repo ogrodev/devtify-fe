@@ -1,13 +1,14 @@
 import React, { Dispatch, Reducer, useReducer } from "react";
 import useAppMiddleware from "../hooks/useAppMiddleware";
-import { IApp, INews, IOpenSourceProject, IWorkshop } from "../interfaces/app.interface";
-import { CLEAR_APP } from "../reducers/app.reducer";
+import { IApp, IWorkshop } from "../interfaces/app.interface";
+import { CLEAR_APP, TOGGLE_MODAL } from "../reducers/app.reducer";
 
 export interface IAppContext {
 	settings: IApp;
 	updateAppSettings: Function;
 	clearAppSettings: Function;
 	appDispatch: Dispatch<any>;
+	toggleModal: Function;
 }
 
 const AppStateContext = React.createContext<IAppContext>({
@@ -20,13 +21,16 @@ const AppStateContext = React.createContext<IAppContext>({
 			product: false,
 		},
 		workshops: [],
+		products: [],
 		highlights: {
 			workshop: {} as IWorkshop,
+			products: [],
 		},
 	},
 	updateAppSettings: () => {},
 	clearAppSettings: () => {},
 	appDispatch: () => {},
+	toggleModal: () => {},
 });
 
 interface IProvider {
@@ -37,7 +41,7 @@ interface IProvider {
 
 export const AppStateProvider = ({ children, reducer, initialState }: IProvider) => {
 	const [globalAppState, appDispatch] = useReducer<Reducer<IApp, any>>(reducer, initialState);
-	const { fetchWorkshops, fetchHighlightWorkshop } = useAppMiddleware();
+	const { fetchWorkshops, fetchHighlightWorkshop, fetchProducts, fetchHighlightProducts } = useAppMiddleware();
 
 	const updateAppSettings = (type: string, payload: IApp) => {
 		switch (type) {
@@ -46,6 +50,12 @@ export const AppStateProvider = ({ children, reducer, initialState }: IProvider)
 				break;
 			case "FETCH_HIGHLIGHT_WORKSHOP":
 				fetchHighlightWorkshop(appDispatch);
+				break;
+			case "FETCH_PRODUCTS":
+				fetchProducts(appDispatch);
+				break;
+			case "FETCH_HIGHLIGHT_PRODUCTS":
+				fetchHighlightProducts(appDispatch);
 				break;
 			default:
 				appDispatch({ type, payload });
@@ -57,9 +67,13 @@ export const AppStateProvider = ({ children, reducer, initialState }: IProvider)
 		appDispatch({ type: CLEAR_APP });
 	};
 
+	const toggleModal = (modalType: string) => {
+		appDispatch({ type: TOGGLE_MODAL, modalTrigger: modalType });
+	};
+
 	return (
 		<AppStateContext.Provider
-			value={{ settings: globalAppState, updateAppSettings, clearAppSettings, appDispatch }}
+			value={{ settings: globalAppState, updateAppSettings, clearAppSettings, appDispatch, toggleModal }}
 		>
 			{children}
 		</AppStateContext.Provider>

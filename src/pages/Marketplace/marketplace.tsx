@@ -9,18 +9,36 @@ import { FormProvider, useForm } from "react-hook-form";
 import TextArea from "../../components/FormControls/TextArea/TextArea";
 import GenericButton from "../../components/Buttons/genericButton";
 import { BiStore } from "react-icons/bi";
+import { feedbackService } from "../../services/feedback";
+import { useEffect, useState } from "react";
+import useNotification from "../../hooks/useNotification";
+import useSettings from "../../hooks/useSettings";
+import { Spinner } from "reactstrap";
 
 interface IFormData {
 	message: string;
 }
 
 export default function Marketplace() {
+	const [feedbackSent, setFeedbackSent] = useState(false);
+
+	const { settings, updateAppSettings } = useSettings();
 	const { authState } = useAuth();
 	const methods = useForm<IFormData>();
+	const notify = useNotification();
 
 	const sendMsg = (data: IFormData) => {
-		// Make a request to API to save feedback
+		feedbackService.send(data.message).then((response) => {
+			setFeedbackSent(true);
+			notify("Feedback sent successfully", "Success");
+		});
 	};
+
+	useEffect(() => {
+		updateAppSettings("FETCH_PRODUCTS");
+		// eslint-disable-next-line
+	}, []);
+
 	return (
 		<div className={`position-relative text-start defaultPadding pt-5 ${styles.container}`}>
 			<MainBanner />
@@ -39,10 +57,12 @@ export default function Marketplace() {
 					</div>
 				</div>
 			</div>
-			<div className="d-flex gap-3 flex-wrap">
-				{mockedProducts.map((product) => {
-					return <ProductCard product={product} key={product.id} />;
-				})}
+			<div className="d-flex gap-3 flex-wrap align-content-stretch">
+				{!!settings.products.length &&
+					settings.products?.map((product) => {
+						return <ProductCard product={product} key={product.id} />;
+					})}
+				{!settings.products.length && <Spinner />}
 			</div>
 			<div className="pt-5 mt-5" />
 			<div className="my-5">
