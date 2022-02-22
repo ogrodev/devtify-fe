@@ -38,6 +38,7 @@ export default function Login() {
 				auth.token = res.data?.token;
 				auth.persist = data.rememberMe;
 				auth.authenticated = true;
+				auth.progression = res.data?.progression;
 				updateAuthState(UPDATE_AUTH, auth);
 				navigate(routeConfig.home.path);
 				setLoggingIn(false);

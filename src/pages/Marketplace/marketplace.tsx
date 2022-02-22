@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import useNotification from "../../hooks/useNotification";
 import useSettings from "../../hooks/useSettings";
 import { Spinner } from "reactstrap";
+import { AxiosError } from "axios";
 
 interface IFormData {
 	message: string;
@@ -28,10 +29,15 @@ export default function Marketplace() {
 	const notify = useNotification();
 
 	const sendMsg = (data: IFormData) => {
-		feedbackService.send(data.message).then((response) => {
-			setFeedbackSent(true);
-			notify("Feedback sent successfully", "Success");
-		});
+		feedbackService
+			.send(data.message)
+			.then((response) => {
+				setFeedbackSent(true);
+				notify("Feedback sent successfully", "Success");
+			})
+			.catch((error: AxiosError) => {
+				notify("Something went wrong", "Error");
+			});
 	};
 
 	useEffect(() => {

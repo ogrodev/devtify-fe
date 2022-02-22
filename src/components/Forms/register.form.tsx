@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useNotification from "../../hooks/useNotification";
 import { IAuth } from "../../interfaces/auth.interface";
+import { UPDATE_AUTH } from "../../reducers/auth.reducer";
 import { routeConfig } from "../../routes/routeConfig";
 import { authService } from "../../services/auth";
 import GenericButton from "../Buttons/genericButton";
@@ -19,7 +20,7 @@ interface IRegister {
 	password_register: string;
 	password_confirmation: string;
 	job_title: string;
-	project_name: string;
+	project_client: string;
 	linkedin_url: string;
 }
 
@@ -37,7 +38,7 @@ export default function RegisterForm() {
 				data.name,
 				data.email_register,
 				data.job_title,
-				data.project_name,
+				data.project_client,
 				data.linkedin_url,
 				data.password_register,
 				data.password_confirmation
@@ -46,7 +47,8 @@ export default function RegisterForm() {
 				let auth: IAuth = res.data?.user;
 				auth.token = res.data?.token;
 				auth.authenticated = true;
-				updateAuthState(auth);
+				auth.progression = res.data?.progression;
+				updateAuthState(UPDATE_AUTH, auth);
 				navigate(routeConfig.home.path);
 				setRegistering(false);
 			})
@@ -78,7 +80,12 @@ export default function RegisterForm() {
 						className="mb-2"
 					/>
 					<TextInput id="job_title" placeholder="Your job title" isRequired className="mb-2" />
-					<TextInput id="project_name" placeholder="The project you are in now" isRequired className="mb-2" />
+					<TextInput
+						id="project_client"
+						placeholder="The project you are in now"
+						isRequired
+						className="mb-2"
+					/>
 					<TextInput
 						id="linkedin_url"
 						placeholder="Your full linkedin profile url"

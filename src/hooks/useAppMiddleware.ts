@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { UPDATE_APP, UPDATE_HIGHLIGHTS } from "../reducers/app.reducer";
+import { ADD_WORKSHOP, UPDATE_APP, UPDATE_HIGHLIGHTS } from "../reducers/app.reducer";
 import { marketplaceService } from "../services/marketplace";
 import { workshopService } from "../services/workshop";
 
@@ -7,6 +7,12 @@ export default function useAppMiddleware() {
 	const fetchWorkshops = (appDispatch: Dispatch<any>) => {
 		workshopService.getAll().then((response) => {
 			appDispatch({ type: UPDATE_APP, payload: { workshops: response.data.items } });
+		});
+	};
+
+	const fetchWorkshop = (id: number, appDispatch: Dispatch<any>) => {
+		workshopService.getOne(id).then((response) => {
+			appDispatch({ type: ADD_WORKSHOP, payload: { workshops: [response.data] } });
 		});
 	};
 
@@ -28,5 +34,5 @@ export default function useAppMiddleware() {
 		});
 	};
 
-	return { fetchWorkshops, fetchHighlightWorkshop, fetchProducts, fetchHighlightProducts };
+	return { fetchWorkshops, fetchHighlightWorkshop, fetchProducts, fetchHighlightProducts, fetchWorkshop };
 }

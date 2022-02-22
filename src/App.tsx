@@ -16,6 +16,8 @@ import News from "./pages/Posts/news";
 import Post from "./pages/Posts/post";
 import OpenSource from "./pages/OpenSource/OpenSource";
 import Workshops from "./pages/Workshops/workshops";
+import WorkshopDetail from "./pages/WorkshopDetail/workshopDetail";
+import Rewards from "./pages/Rewards/rewards";
 
 const Marketplace = React.lazy(() => import("./pages/Marketplace/marketplace"));
 
@@ -51,18 +53,18 @@ function App() {
 						}
 					/>
 					<Route
-						path="post/:id"
+						path="workshop/:id"
 						element={
 							<RequireAuth>
-								<Post />
+								<WorkshopDetail />
 							</RequireAuth>
 						}
 					/>
 					<Route
-						path="open-source"
+						path="rewards"
 						element={
 							<RequireAuth>
-								<OpenSource />
+								<Rewards />
 							</RequireAuth>
 						}
 					/>

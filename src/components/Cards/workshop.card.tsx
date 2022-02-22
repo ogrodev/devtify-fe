@@ -12,20 +12,20 @@ interface IProps extends IWorkshop {
 export default function WorkshopCard(props: IProps) {
 	const navigate = useNavigate();
 
-	const userAvatar = props?.user?.avatar
-		? props?.user?.avatar
+	const userAvatar = props?.user?.image
+		? props?.user?.image
 		: createImageFromInitials(40, props?.user?.name || "User", "#0473b1");
 
 	const goToWS = () => {
 		if (!props.id) return;
-		navigate(routeConfig.workshop.path.replace(":id", props.id));
+		navigate(routeConfig.workshop.path.replace(":id", props.id.toString()));
 	};
 
 	return (
 		<div className={props?.is_highlight ? "col-12" : styles.cardContainer}>
 			<div className="d-flex align-items-center flex-wrap gap-1">
 				<div className={props?.is_highlight ? "col-6 d-flex justify-content-center" : "col-12"}>
-					<div className={styles.imgContainer}>
+					<div className={styles.imgContainer} onClick={goToWS}>
 						<img src={props?.thumbnail_url} alt={props?.title} />
 					</div>
 				</div>

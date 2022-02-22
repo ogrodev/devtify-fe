@@ -3,6 +3,7 @@ import styles from "./buyModal.module.sass";
 import { Lottie } from "../Lottie/lottie";
 import coinData from "../Lottie/animations/coin.json";
 import confirmationData from "../Lottie/animations/confirmation.json";
+import ticketData from "../Lottie/animations/ticket.json";
 import useAuth from "../../hooks/useAuth";
 import GenericButton from "../Buttons/genericButton";
 import { useState } from "react";
@@ -15,6 +16,7 @@ interface IProps {
 	id: number;
 	name: string;
 	price: number;
+	is_workshop?: boolean;
 }
 
 export default function BuyModal(props: IProps) {
@@ -28,6 +30,21 @@ export default function BuyModal(props: IProps) {
 	const handlePurchase = () => {
 		if (!authState.balance) return;
 		setPurchasing(true);
+		if (props.is_workshop) {
+			marketplaceService
+				.purchaseTicket(props.id.toString())
+				.then(() => {
+					setPurchased(true);
+					setPurchasing(false);
+					updateAuthState(UPDATE_AUTH, {
+						balance: authState.balance! - props.price,
+					});
+				})
+				.catch((err: AxiosError) => {
+					notify(err.response?.data.message, "Error");
+				});
+			return;
+		}
 		marketplaceService
 			.purchase(props.id.toString())
 			.then(() => {
@@ -42,18 +59,33 @@ export default function BuyModal(props: IProps) {
 	};
 
 	const closeModal = () => {
-		toggleModal("purchase" + props.id);
+		toggleModal((props.is_workshop ? "workshop" : "purchase") + props.id);
 	};
 
 	return (
-		<GenericModal modalType={"purchase" + props.id} title="Marketplace purchase">
+		<GenericModal
+			modalType={(props.is_workshop ? "workshop" : "purchase") + props.id}
+			title={props.is_workshop ? "Workshop ticket" : "Marketplace purchase"}
+		>
 			{purchased ? (
 				<div className="d-flex align-items-center justify-content-center flex-column">
-					<Lottie animationData={confirmationData} width={250} height={250} />
-					<h6 className="text-center">
-						Congratulations! <br />
-						You purchased: <em className="text-muted">{props.name}</em>
-					</h6>
+					{props.is_workshop ? (
+						<>
+							<Lottie animationData={ticketData} width={250} height={250} />
+							<h6 className="text-center">
+								Congratulations! <br />
+								You purchased a ticket for: <em className="text-muted">{props.name}</em>
+							</h6>
+						</>
+					) : (
+						<>
+							<Lottie animationData={confirmationData} width={250} height={250} />
+							<h6 className="text-center">
+								Congratulations! <br />
+								You purchased: <em className="text-muted">{props.name}</em>
+							</h6>
+						</>
+					)}
 					<GenericButton type="button" className="mt-4 mb-5 w-25" onClick={closeModal}>
 						Close
 					</GenericButton>
@@ -88,7 +120,10 @@ export default function BuyModal(props: IProps) {
 						<hr className={styles.separator} />
 						{authState.balance! - props.price < 0 ? (
 							<div>
-								<span className={styles.alert}>You don't have enough BD coins to buy this :(</span>
+								<span className={styles.alert}>
+									You don't have enough BD coins to buy this{" "}
+									{props.is_workshop ? "ticket" : "product"} :(
+								</span>
 							</div>
 						) : (
 							<div className="d-flex w-100 gap-3 align-items-center">

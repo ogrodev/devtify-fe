@@ -2,6 +2,8 @@ import { getLocalStorage, setLocalStorage } from "../hooks/useLocalStorage";
 import { IAuth } from "../interfaces/auth.interface";
 
 export const UPDATE_AUTH = "APP/AUTH/UPDATE";
+export const CLAIM_REWARD = "APP/AUTH/CLAIM_REWARD";
+export const SYNC_REWARDS = "APP/AUTH/SYNC_REWARDS";
 export const CLEAR_AUTH = "APP/AUTH/CLEAR";
 
 export const parsedLocalAuth: IAuth | null =
@@ -34,6 +36,7 @@ export const authReducer = (state: IAuth = initialAuthState, action: IAction) =>
 
 		case CLEAR_AUTH:
 			localStorage.removeItem("authState");
+			sessionStorage.removeItem("authState");
 			return { authenticated: false };
 
 		default:

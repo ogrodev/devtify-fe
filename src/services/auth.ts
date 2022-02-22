@@ -60,6 +60,14 @@ class AuthService {
 			data: json,
 		});
 	}
+
+	update(data: any): AxiosPromise<any> {
+		return apiService({
+			method: "put",
+			url: SERVER_API_BASE_V1 + "user",
+			data,
+		});
+	}
 }
 
 export const authService = new AuthService();

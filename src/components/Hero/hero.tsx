@@ -1,34 +1,47 @@
+import { useEffect } from "react";
 import { RiTimerFill } from "react-icons/ri";
-import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import useSettings from "../../hooks/useSettings";
+import { routeConfig } from "../../routes/routeConfig";
 import MainBanner from "../Banner/mainBanner";
 import GenericButton from "../Buttons/genericButton";
 import styles from "./hero.module.sass";
-import mockedPost from "./MockedData/mockedPost.json";
 
 export default function HeroSection() {
-	const { authState } = useAuth();
+	const { settings, updateAppSettings } = useSettings();
+	const highlight = settings?.highlights?.workshop;
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (highlight) return;
+		updateAppSettings("FETCH_HIGHLIGHT_WORKSHOP");
+		// eslint-disable-next-line
+	}, [highlight]);
+
 	return (
 		<>
 			<MainBanner />
-			<div className={styles.welcome}>
-				<h2>Hey {authState.name}!</h2>
-			</div>
 			<div className={styles.heroSection}>
 				<div className={styles.heroContentLg}>
 					<div className={styles.imgContainer}>
 						<div />
-						<img src={mockedPost.cover} alt={mockedPost.title} />
+						<img src={highlight?.thumbnail_url} alt={highlight?.title} />
 					</div>
-					<span className={styles.heroBadge}>Post of the week</span>
+					<span className={styles.heroBadge}>Featured workshop</span>
 					<div>
-						<span className={styles.heroTitle}>{mockedPost.title}</span>
-						<span className={styles.heroAuthor}>By {mockedPost.author}</span>
+						<span className={styles.heroTitle}>{highlight?.title}</span>
+						<span className={styles.heroAuthor}>By {highlight?.user?.name}</span>
 						<div className="d-flex gap-3 justify-content-end">
-							<GenericButton type="button">
-								<span className="text-uppercase">Read post</span>
+							<GenericButton
+								type="button"
+								onClick={() =>
+									navigate(routeConfig.workshop.path.replace(":id", highlight.id?.toString()!))
+								}
+							>
+								<span className="text-uppercase">See more</span>
 							</GenericButton>
 							<GenericButton type="button" variant="cian">
-								<span className="text-uppercase">Add new post for 3 BD</span>
+								<span className="text-uppercase">Add new workshop for 10 BD</span>
 							</GenericButton>
 						</div>
 					</div>

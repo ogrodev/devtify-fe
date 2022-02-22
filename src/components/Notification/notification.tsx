@@ -14,17 +14,14 @@ export default function NotificationToast() {
 		if (settings.notification.show) {
 			setTimeout(() => {
 				updateAppSettings(UPDATE_APP, { notification: { show: false } });
-			}, settings.notification.delay || 5000);
+			}, 8000);
 		}
 		// eslint-disable-next-line
 	}, [settings.notification.show]);
 
 	return (
-		<Toast isOpen={settings?.notification?.show || false}>
-			<ToastHeader icon={settings?.notification?.type || "success"} toggle={handleClose}>
-				{settings?.notification?.title}
-			</ToastHeader>
-			<ToastBody>{settings?.notification?.message}</ToastBody>
+		<Toast isOpen={settings.notification.show} fade className={settings?.notification?.title + "toast"}>
+			<ToastHeader toggle={handleClose}>{settings?.notification?.message}</ToastHeader>
 		</Toast>
 	);
 }

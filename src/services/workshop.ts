@@ -10,6 +10,13 @@ class WorkshopService {
 		});
 	};
 
+	getOne = (id: number): AxiosPromise<any> => {
+		return apiService({
+			method: "get",
+			url: SERVER_API_BASE_V1 + "workshops/" + id.toString(),
+		});
+	};
+
 	getHighlights = (): AxiosPromise<any> => {
 		return apiService({
 			method: "get",

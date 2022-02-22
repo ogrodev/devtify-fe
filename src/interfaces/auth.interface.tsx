@@ -4,12 +4,27 @@ export interface IAuth {
 	email?: string;
 	token?: string;
 	balance?: number;
-	avatar?: string;
+	image?: string;
 	name?: string;
 	job_title?: string;
-	project_name?: string;
+	project_client?: string;
 	linkedin_url?: string;
 	persist?: boolean;
+	progression?: number;
+	rewards?: IReward[];
+}
+
+export interface IReward {
+	id: number;
+	code: string;
+	name: string;
+	description: string;
+	value: number;
+	active: number;
+	created_at: string;
+	updated_at: string;
+	claimed: boolean;
+	claimable: boolean;
 }
 
 export interface IUser {
@@ -22,5 +37,5 @@ export interface IUser {
 	job_title: string;
 	project_client: string;
 	linkedin_url: string;
-	avatar?: string;
+	image?: string;
 }
