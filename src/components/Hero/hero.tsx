@@ -2,15 +2,21 @@ import { useEffect } from "react";
 import { RiTimerFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import useSettings from "../../hooks/useSettings";
+import { TOGGLE_WS_MODAL } from "../../reducers/app.reducer";
 import { routeConfig } from "../../routes/routeConfig";
 import MainBanner from "../Banner/mainBanner";
 import GenericButton from "../Buttons/genericButton";
+import NewEventModal from "../Modal/newEventModal";
 import styles from "./hero.module.sass";
 
 export default function HeroSection() {
-	const { settings } = useSettings();
+	const { settings, updateAppSettings } = useSettings();
 	const highlight = settings?.highlights?.workshop;
 	const navigate = useNavigate();
+
+	const handleNewWorkshop = () => {
+		updateAppSettings(TOGGLE_WS_MODAL);
+	};
 
 	return (
 		<>
@@ -34,7 +40,7 @@ export default function HeroSection() {
 							>
 								<span className="text-uppercase">See more</span>
 							</GenericButton>
-							<GenericButton type="button" variant="cian">
+							<GenericButton type="button" variant="cian" onClick={handleNewWorkshop}>
 								<span className="text-uppercase">Add new workshop for 10 BD</span>
 							</GenericButton>
 						</div>
@@ -60,6 +66,7 @@ export default function HeroSection() {
 					</div>
 				</div>
 			</div>
+			<NewEventModal />
 		</>
 	);
 }
