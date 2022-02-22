@@ -28,7 +28,9 @@ export default function Workshops() {
 		<>
 			<div className={`position-relative text-start defaultPadding pt-5 ${styles.container}`}>
 				<MainBanner />
-				<div className="d-flex align-items-center justify-content-between whiteColor mt-lg-5 pt-lg-5">
+				<div
+					className={`d-flex align-items-center justify-content-between whiteColor mt-lg-5 pt-lg-5 ${styles.position}`}
+				>
 					<div className="col-6 text-start">
 						<h2>Workshops and events</h2>
 						<p>
