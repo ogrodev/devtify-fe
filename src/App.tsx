@@ -18,6 +18,8 @@ import OpenSource from "./pages/OpenSource/OpenSource";
 import Workshops from "./pages/Workshops/workshops";
 import WorkshopDetail from "./pages/WorkshopDetail/workshopDetail";
 import Rewards from "./pages/Rewards/rewards";
+import UserWorkshops from "./pages/UserWorkshops/userworkshops";
+import Wallet from "./pages/wallet/Wallet";
 
 const Marketplace = React.lazy(() => import("./pages/Marketplace/marketplace"));
 
@@ -65,6 +67,22 @@ function App() {
 						element={
 							<RequireAuth>
 								<Rewards />
+							</RequireAuth>
+						}
+					/>
+					<Route
+						path="my-workshops"
+						element={
+							<RequireAuth>
+								<UserWorkshops />
+							</RequireAuth>
+						}
+					/>
+					<Route
+						path="wallet"
+						element={
+							<RequireAuth>
+								<Wallet />
 							</RequireAuth>
 						}
 					/>

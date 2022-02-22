@@ -17,6 +17,13 @@ class MarketplaceService {
 		});
 	};
 
+	getInventory = (): AxiosPromise<any> => {
+		return apiService({
+			method: "get",
+			url: SERVER_API_BASE_V1 + "user/inventory",
+		});
+	};
+
 	purchase = (id: string): AxiosPromise<any> => {
 		return apiService({
 			method: "post",

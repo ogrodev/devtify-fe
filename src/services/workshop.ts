@@ -24,6 +24,13 @@ class WorkshopService {
 		});
 	};
 
+	likeWorkshop = (id: number): AxiosPromise<any> => {
+		return apiService({
+			method: "post",
+			url: SERVER_API_BASE_V1 + "workshops/" + id.toString() + "/like",
+		});
+	};
+
 	submit = (data: any): AxiosPromise<any> => {
 		return apiService({
 			method: "post",
@@ -31,6 +38,13 @@ class WorkshopService {
 			data: data,
 		});
 	};
+
+	unlikeWorkshop = (id: number): AxiosPromise<any> => {
+		return apiService({
+			method: "delete",
+			url: SERVER_API_BASE_V1 + "workshops/" + id.toString() + "/like",
+		});
+	}
 }
 
 export const workshopService = new WorkshopService();

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import MainBanner from "../../components/Banner/mainBanner";
 import GenericButton from "../../components/Buttons/genericButton";
 import BuyModal from "../../components/Modal/buyModal";
+import useAuth from "../../hooks/useAuth";
 import useSettings from "../../hooks/useSettings";
 import { DATE_TIME_FULL_FORMAT, formatDate } from "../../utils/formatDate";
 import { createImageFromInitials } from "../../utils/imageFromText.util";
@@ -11,6 +12,7 @@ import styles from "./workshopDetail.module.sass";
 
 export default function WorkshopDetail() {
 	const params = useParams();
+	const { authState } = useAuth();
 	const { settings, updateAppSettings, toggleModal } = useSettings();
 	const workshopId = params.id;
 	const workshop = settings.workshops.find((workshop) => workshop.id === parseInt(workshopId!));
@@ -46,9 +48,11 @@ export default function WorkshopDetail() {
 					</div>
 					<div className="d-flex align-items-center gap-4 mt-4 fw-bold">
 						<span>{workshop?.date && formatDate(workshop.date, DATE_TIME_FULL_FORMAT)}</span>
-						<GenericButton type="button" onClick={handleConfirmation} variant="blue">
-							Confirm attendance
-						</GenericButton>
+						{authState.id !== workshop?.user?.id && (
+							<GenericButton type="button" onClick={handleConfirmation} variant="blue">
+								Confirm attendance
+							</GenericButton>
+						)}
 					</div>
 					<div className={styles.coverContainer}>
 						<img src={workshop?.thumbnail_url} alt={workshop?.title} />

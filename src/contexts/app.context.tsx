@@ -41,7 +41,7 @@ interface IProvider {
 
 export const AppStateProvider = ({ children, reducer, initialState }: IProvider) => {
 	const [globalAppState, appDispatch] = useReducer<Reducer<IApp, any>>(reducer, initialState);
-	const { fetchWorkshops, fetchHighlightWorkshop, fetchProducts, fetchHighlightProducts, fetchWorkshop } =
+	const { fetchWorkshops, fetchHighlightWorkshop, fetchUserInventory, fetchProducts, fetchHighlightProducts, fetchWorkshop } =
 		useAppMiddleware();
 
 	const updateAppSettings = (type: string, payload: any) => {
@@ -51,6 +51,9 @@ export const AppStateProvider = ({ children, reducer, initialState }: IProvider)
 				break;
 			case "FETCH_HIGHLIGHT_WORKSHOP":
 				fetchHighlightWorkshop(appDispatch);
+				break;
+			case "FETCH_USER_INVENTORY":
+				fetchUserInventory(appDispatch);
 				break;
 			case "FETCH_PRODUCTS":
 				fetchProducts(appDispatch);
