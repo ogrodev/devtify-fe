@@ -83,7 +83,7 @@ export default function WorkshopCard(props: IProps) {
 						<span className={styles.like}>
 							{props?.user_id !== authState.id && (
 								<>
-									{workshop?.likes.find((like) => like.user_id === authState.id) ? (
+									{workshop?.likes.find((like) => like.id === authState.id) ? (
 										<AiFillHeart size="1em" onClick={unlike} />
 									) : (
 										<AiOutlineHeart size="1em" onClick={like} />

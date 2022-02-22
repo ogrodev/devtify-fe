@@ -87,15 +87,14 @@ export const AppStateProvider = ({ children, reducer, initialState }: IProvider)
 		appDispatch({ type: TOGGLE_MODAL, modalTrigger: modalType });
 	};
 
-	const toggleLikeWs = (id: number, user_id: number) => {
+	const toggleLikeWs = (id: number) => {
 		const workshop = globalAppState.workshops?.find((ws: IWorkshop) => ws.id === id);
 		if (workshop) {
-			if (workshop.likes.find((like) => like.user_id === user_id)) {
-				workshop.likes = workshop.likes.filter((like) => like.user_id !== user_id);
+			if (workshop.likes.find((like) => like.id === id)) {
+				workshop.likes = workshop.likes.filter((like) => like.id !== id);
 			} else {
 				workshop.likes.push({
-					user_id,
-					id: Math.random() * 137,
+					id,
 					workshop_id: id,
 				});
 			}
