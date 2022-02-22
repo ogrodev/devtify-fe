@@ -54,6 +54,18 @@ export default function WorkshopDetail() {
 							</GenericButton>
 						)}
 					</div>
+					{(workshop?.user_id === authState.id ||
+						authState.attended_workshops?.find((ws) => workshop?.id === ws.id)) && (
+						<div className="mt-2 d-flex flex-column">
+							<span>
+								Meeting link:{" "}
+								<a href={workshop?.meeting_link} target="_blank" rel="noreferrer">
+									{workshop?.meeting_link}
+								</a>
+							</span>
+							<span className="mt-1">Password: {workshop?.meeting_password}</span>
+						</div>
+					)}
 					<div className={styles.coverContainer}>
 						<img src={workshop?.thumbnail_url} alt={workshop?.title} />
 					</div>
