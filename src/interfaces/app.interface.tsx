@@ -55,6 +55,5 @@ export interface IProduct {
 
 export interface ILike {
 	id: number;
-	user_id: number;
 	workshop_id: number;
 }
