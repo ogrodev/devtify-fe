@@ -15,6 +15,9 @@ import coinData from "../Lottie/animations/coin.json";
 import useSettings from "../../hooks/useSettings";
 import { TOGGLE_WS_MODAL, UPDATE_APP } from "../../reducers/app.reducer";
 import useNotification from "../../hooks/useNotification";
+import useAuth from "../../hooks/useAuth";
+import { UPDATE_AUTH } from "../../reducers/auth.reducer";
+import { AxiosError } from "axios";
 
 interface IWorkshopForm extends IWorkshop {
 	isPaid: boolean;
@@ -27,6 +30,7 @@ export default function NewEventModal() {
 	const [file, setFile] = useState<string>("");
 
 	const { settings, updateAppSettings } = useSettings();
+	const { authState, updateAuthState } = useAuth();
 	const notify = useNotification();
 	const eventMethods = useForm<IWorkshopForm>({
 		defaultValues: {
@@ -62,11 +66,12 @@ export default function NewEventModal() {
 				setIsLoading(false);
 				updateAppSettings(TOGGLE_WS_MODAL);
 				updateAppSettings(UPDATE_APP, { workshops: [response.data, ...settings.workshops] });
+				updateAuthState(UPDATE_AUTH, { balance: authState.balance! + 10 });
 				notify("Workshop created successfully", "Success");
 			})
-			.catch((error) => {
+			.catch((error: AxiosError) => {
 				setIsLoading(false);
-				notify("An error occured while creating the workshop", "Error");
+				notify(error.response?.data?.message || "An error occured while creating the workshop", "Error");
 			});
 	};
 
@@ -118,13 +123,13 @@ export default function NewEventModal() {
 								</div>
 								<div>
 									{file ? (
-										<div>
+										<div className={styles.fileContainer}>
 											<img src={file} alt="" />
 											<GenericButton
 												type="button"
 												onClick={() => setFile("")}
 												variant="purple"
-												className="mx-auto"
+												className="mx-auto mt-3"
 											>
 												Change thumbnail
 											</GenericButton>
@@ -135,7 +140,7 @@ export default function NewEventModal() {
 								</div>
 								<div className="d-flex gap-2 align-items-center my-3">
 									<Lottie animationData={coinData} width={50} height={50} />
-									<h6>By the end of this event you will win 10BD coins</h6>
+									<h6>By creating this event you will win 10BD coins</h6>
 								</div>
 								<div className={styles.finalComm}>
 									<p>After posting this event, a Zoom Link will be generated automatically.</p>
