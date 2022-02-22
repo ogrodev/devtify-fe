@@ -88,7 +88,7 @@ export const AppStateProvider = ({ children, reducer, initialState }: IProvider)
 	};
 
 	const toggleLikeWs = (id: number, user_id: number) => {
-		const workshop = globalAppState.workshops.find((ws: IWorkshop) => ws.id === id);
+		const workshop = globalAppState.workshops?.find((ws: IWorkshop) => ws.id === id);
 		if (workshop) {
 			if (workshop.likes.find((like) => like.user_id === user_id)) {
 				workshop.likes = workshop.likes.filter((like) => like.user_id !== user_id);
