@@ -3,7 +3,6 @@ import { Lottie } from "../../components/Lottie/lottie";
 import styles from "./marketplace.module.sass";
 import coinData from "../../components/Lottie/animations/coin.json";
 import useAuth from "../../hooks/useAuth";
-import mockedProducts from "./MockedData/mockedProducts.json";
 import ProductCard from "../../components/Cards/product.card";
 import { FormProvider, useForm } from "react-hook-form";
 import TextArea from "../../components/FormControls/TextArea/TextArea";
