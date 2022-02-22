@@ -80,7 +80,14 @@ export default function WorkshopDetail() {
 					</div>
 				</div>
 			</div>
-			{workshop && <BuyModal is_workshop id={workshop?.id!} name={workshop?.title!} price={workshop?.price!} />}
+			{workshop && (
+				<BuyModal
+					is_workshop
+					id={workshop?.id!}
+					name={workshop?.title!}
+					price={Math.round(workshop?.price) || 0}
+				/>
+			)}
 		</div>
 	);
 }

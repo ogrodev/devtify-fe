@@ -25,11 +25,11 @@ export default function ProductCard(props: IProps) {
 					<span className={styles.productName}>{props.product.title}</span>
 					<div className="d-flex gap-2 align-items-center">
 						<Lottie animationData={coinData} width={20} height={20} />
-						<span className="mt-1">{props.product.price} DB</span>
+						<span className="mt-1">{Math.round(props.product.price)} DB</span>
 					</div>
 				</div>
 			</div>
-			<BuyModal name={props.product.title} price={props.product.price} id={props.product.id} />
+			<BuyModal name={props.product.title} price={Math.round(props.product.price)} id={props.product.id} />
 		</>
 	);
 }
