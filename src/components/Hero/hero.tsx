@@ -8,15 +8,9 @@ import GenericButton from "../Buttons/genericButton";
 import styles from "./hero.module.sass";
 
 export default function HeroSection() {
-	const { settings, updateAppSettings } = useSettings();
+	const { settings } = useSettings();
 	const highlight = settings?.highlights?.workshop;
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		if (highlight) return;
-		updateAppSettings("FETCH_HIGHLIGHT_WORKSHOP");
-		// eslint-disable-next-line
-	}, [highlight]);
 
 	return (
 		<>
