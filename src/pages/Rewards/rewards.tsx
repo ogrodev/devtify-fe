@@ -43,18 +43,16 @@ export default function Rewards() {
 	};
 
 	useEffect(() => {
-		if (!rewardList.length) {
-			rewardService.getAll().then((res) => {
-				updateAuthState(UPDATE_AUTH, { rewards: res.data });
-			});
-		}
+		rewardService.getAll().then((res) => {
+			updateAuthState(UPDATE_AUTH, { rewards: res.data });
+		});
 	}, []);
 
 	return (
 		<div className={`position-relative defaultPadding ${styles.container}`}>
 			<MainBanner />
 			<div className={styles.innerContainer}>
-				<div className={styles.header} onClick={() => notify("Test notification", "Error")}>
+				<div className={styles.header}>
 					<h3>Reward list</h3>
 					<hr className={styles.separator} />
 				</div>

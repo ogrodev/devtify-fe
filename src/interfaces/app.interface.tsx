@@ -36,7 +36,7 @@ export interface IWorkshop {
 	description: string;
 	user_id: number;
 	liked: boolean;
-	likes: number;
+	likes: ILike[];
 	created_at: string;
 	updated_at: string;
 }
@@ -50,4 +50,10 @@ export interface IProduct {
 	highlighted: number;
 	created_at: string;
 	updated_at: string;
+}
+
+export interface ILike {
+	id: number;
+	user_id: number;
+	workshop_id: number;
 }

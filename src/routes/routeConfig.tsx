@@ -8,6 +8,7 @@ export const routeConfig = {
 	marketplace: { path: "/marketplace", name: "Marketplace" },
 	wallet: { path: "/wallet", name: "My Wallet" },
 	rewards: { path: "/rewards", name: "Rewards" },
+	userWorkshops: { path: "/my-workshops", name: "My Workshops" },
 };
 
 export const menuRoutes = [
@@ -18,5 +19,9 @@ export const menuRoutes = [
 	{
 		name: routeConfig.rewards.name,
 		path: routeConfig.rewards.path,
+	},
+	{
+		name: routeConfig.userWorkshops.name,
+		path: routeConfig.userWorkshops.path,
 	},
 ];
