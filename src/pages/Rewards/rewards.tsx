@@ -68,12 +68,12 @@ export default function Rewards() {
 									<span className="text-muted">{reward.description}</span>
 								</div>
 							</div>
-							<div className="d-flex align-items-center gap-3">
-								<div className="d-flex align-items-center gap-2">
+							<div className="d-flex align-items-center gap-3 flex-wrap flex-lg-nowrap">
+								<div className="d-flex align-items-center justify-content-center justify-content-lg-start gap-2 col-12 col-lg-6">
 									<span className="fw-bold">{reward.value} BD</span>
 									<Lottie animationData={coinData} width={50} height={50} />
 								</div>
-								<div>
+								<div className="col-12 col-lg-6 d-flex justify-content-center justify-content-lg-start">
 									<GenericButton
 										type="button"
 										disabled={!reward.claimable || reward.claimed}

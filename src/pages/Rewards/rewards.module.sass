@@ -7,13 +7,15 @@
     background-color: var(--grayBg)
 
 .innerContainer
-    width: 80%
+    width: 100%
     background: var(--white)
     padding: 5%
     text-align: start
     border-radius: 16px
     position: relative
     z-index: 1
+    @media (min-width: 992px)
+        width: 80%
 
 .rewards
     margin-top: 30px
@@ -24,10 +26,14 @@
 .reward
     display: flex
     align-items: center
-    justify-content: space-between
+    justify-content: center
     background: var(--grayBg)
     padding: 16px
     gap: 24px
+    flex-wrap: wrap
+    @media (min-width: 992px)
+        justify-content: space-between
+        flex-wrap: nowrap
 
 .claimed
     color: var(--claimed)

@@ -48,7 +48,9 @@ export default function Marketplace() {
 		<div className={`position-relative text-start defaultPadding pt-5 ${styles.container}`}>
 			<MainBanner />
 			<div className={styles.position}>
-				<div className={`d-flex justify-content-between align-items-center ${styles.position}`}>
+				<div
+					className={`d-flex justify-content-between align-items-center flex-wrap flex-lg-nowrap ${styles.position}`}
+				>
 					<div className={styles.titleContainer}>
 						<h2>
 							<BiStore size="1.5em" /> The Marketplace

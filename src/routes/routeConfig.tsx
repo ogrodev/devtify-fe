@@ -25,3 +25,22 @@ export const menuRoutes = [
 		path: routeConfig.userWorkshops.path,
 	},
 ];
+
+export const menuRoutesMob = [
+	{
+		name: routeConfig.workshops.name,
+		path: routeConfig.workshops.path,
+	},
+	{
+		name: routeConfig.rewards.name,
+		path: routeConfig.rewards.path,
+	},
+	{
+		name: routeConfig.userWorkshops.name,
+		path: routeConfig.userWorkshops.path,
+	},
+	{
+		name: routeConfig.marketplace.name,
+		path: routeConfig.marketplace.path,
+	},
+];

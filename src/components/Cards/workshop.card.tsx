@@ -67,7 +67,7 @@ export default function WorkshopCard(props: IProps) {
 	return (
 		<div className={props?.is_highlight ? "col-12" : styles.cardContainer}>
 			<div className="d-flex align-items-center flex-wrap gap-1">
-				<div className={props?.is_highlight ? "col-6 d-flex justify-content-center" : "col-12"}>
+				<div className={props?.is_highlight ? "col-12 col-lg-6 d-flex justify-content-center" : "col-12"}>
 					<div className={styles.imgContainer} onClick={goToWS}>
 						<img src={props?.thumbnail_url} alt={props?.title} />
 					</div>
@@ -75,7 +75,7 @@ export default function WorkshopCard(props: IProps) {
 				<div
 					className={
 						props?.is_highlight
-							? "col-auto text-start d-flex flex-column gap-3 ps-4"
+							? "col-auto text-start d-flex flex-column gap-3 ps-4 mw-100"
 							: "col-12 text-start d-flex flex-column gap-1 ps-3"
 					}
 				>

@@ -29,16 +29,16 @@ export default function Workshops() {
 			<div className={`position-relative text-start defaultPadding pt-5 ${styles.container}`}>
 				<MainBanner />
 				<div
-					className={`d-flex align-items-center justify-content-between whiteColor mt-lg-5 pt-lg-5 ${styles.position}`}
+					className={`d-flex flex-wrap flex-lg-nowrap align-items-center justify-content-between whiteColor mt-lg-5 pt-lg-5 ${styles.position}`}
 				>
-					<div className="col-6 text-start">
+					<div className="col-12 col-lg-6 text-start">
 						<h2>Workshops and events</h2>
 						<p>
 							Get to know all our workshops given by our own community. Do you have the capacity to make
 							your own course? Apply as mentor and create your workshop.
 						</p>
 					</div>
-					<div className="col-6 d-flex align-items-stretch justify-content-end gap-3">
+					<div className="col-12 col-lg-6 flex-wrap flex-lg-nowrap d-flex align-items-stretch justify-content-end gap-3">
 						<div className="col-12 col-lg-auto">
 							<GenericButton type="button" variant="blue" className="text-uppercase">
 								<FaGraduationCap size="1em" />
@@ -66,7 +66,7 @@ export default function Workshops() {
 					<Spinner />
 				)}
 			</div>
-			<div className="d-flex mt-5 flex-wrap align-items-stretch justify-content-between gap-4 defaultPadding">
+			<div className="d-flex flex-wrap flex-lg-nowrap mt-5 flex-wrap align-items-stretch justify-content-between gap-4 defaultPadding">
 				{!!settings?.workshops.length &&
 					settings?.workshops
 						?.slice(0, 3)
