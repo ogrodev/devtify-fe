@@ -1,4 +1,5 @@
 import { Controller, useFormContext, Validate } from "react-hook-form";
+import formatString from "../../../utils/formatString.util";
 
 interface IProps {
 	id: string;
@@ -13,6 +14,7 @@ interface IProps {
 	onChange?: Function;
 	onBlur?: Function;
 	value?: string;
+	helperTxt?: string;
 }
 
 export default function TextInput(props: IProps) {
@@ -44,7 +46,13 @@ export default function TextInput(props: IProps) {
 						ref={ref}
 						disabled={props.disabled}
 						placeholder={props.placeholder}
+						aria-invalid={formState.errors[props.id] ? "true" : "false"}
 					/>
+					{formState.errors[props.id] && (
+						<small className="errorHelper">
+							{props.helperTxt ? props.helperTxt : "This field is required"}
+						</small>
+					)}
 				</label>
 			)}
 		/>

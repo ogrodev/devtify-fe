@@ -71,12 +71,22 @@ export default function RegisterForm() {
 						isRequired
 						className="mb-2"
 					/>
-					<TextInput id="password_register" placeholder="Password" isRequired isPassword className="mb-2" />
+					<TextInput
+						id="password_register"
+						placeholder="Password"
+						isRequired
+						isPassword
+						className="mb-2"
+						validationSchema={(v) => v.length >= 8}
+						helperTxt="Password must be at least 8 characters long"
+					/>
 					<TextInput
 						id="password_confirmation"
 						placeholder="Password confirmation"
 						isRequired
 						isPassword
+						validationSchema={(v) => v.length >= 8}
+						helperTxt="Password must be at least 8 characters long"
 						className="mb-2"
 					/>
 					<TextInput id="job_title" placeholder="Your job title" isRequired className="mb-2" />
@@ -86,12 +96,7 @@ export default function RegisterForm() {
 						isRequired
 						className="mb-2"
 					/>
-					<TextInput
-						id="linkedin_url"
-						placeholder="Your full linkedin profile url"
-						isRequired
-						className="mb-2"
-					/>
+					<TextInput id="linkedin_url" placeholder="Your full linkedin profile url" className="mb-2" />
 					<GenericButton
 						type="submit"
 						disabled={registering}
