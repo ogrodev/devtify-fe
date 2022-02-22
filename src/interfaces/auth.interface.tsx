@@ -13,6 +13,7 @@ export interface IAuth {
 	progression?: number;
 	rewards?: IReward[];
 	workshops?: IWorkshop[];
+	attended_workshops?: IWorkshop[];
 }
 
 export interface IReward {

@@ -33,6 +33,7 @@ export interface IWorkshop {
 	user: IUser;
 	thumbnail_url: string;
 	meeting_link: string;
+	meeting_password: string;
 	date: string;
 	description: string;
 	user_id: number;
