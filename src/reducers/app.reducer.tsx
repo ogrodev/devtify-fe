@@ -2,6 +2,9 @@ import { IApp, IWorkshop } from "../interfaces/app.interface";
 
 export const UPDATE_APP = "APP/UPDATE";
 export const ADD_WORKSHOP = "APP/WS/ADD";
+export const UPDATE_WORKSHOP = "APP/WS/UPDATE";
+export const LIKE_WORKSHOP = "APP/WS/LIKE";
+export const UNLIKE_WORKSHOP = "APP/WS/UNLIKE";
 export const UPDATE_HIGHLIGHTS = "APP/UPDATE/HIGHLIGHTS";
 export const TOGGLE_THEME = "APP/TOGGLE_THEME";
 export const TOGGLE_MODAL = "APP/MODAL/";
@@ -19,6 +22,7 @@ export const initialAppState: IApp = sessionStorage.settings
 			},
 			workshops: [],
 			products: [],
+			inventory: [],
 			highlights: {
 				workshop: {} as IWorkshop,
 				products: [],
@@ -27,7 +31,7 @@ export const initialAppState: IApp = sessionStorage.settings
 
 interface IAction {
 	type: string;
-	payload?: IApp | string;
+	payload?: IApp;
 	modalTrigger?: string;
 }
 
@@ -50,6 +54,21 @@ export const appReducer = (state: IApp = initialAppState, action: IAction) => {
 			return {
 				...state,
 				workshops: [...state.workshops, ...action.payload?.workshops!],
+			};
+
+		case UPDATE_WORKSHOP:
+			if (typeof action.payload === "string") return state;
+			sessionStorage.settings = JSON.stringify({
+				...state,
+				workshops: state.workshops.map((workshop) =>
+					workshop.id === action.payload?.workshops[0].id ? action.payload?.workshops[0] : workshop
+				),
+			});
+			return {
+				...state,
+				workshops: state.workshops.map((workshop) =>
+					workshop.id === action.payload?.workshops[0].id ? action.payload?.workshops[0] : workshop
+				),
 			};
 
 		case UPDATE_HIGHLIGHTS:

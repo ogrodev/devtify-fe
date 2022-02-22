@@ -1,5 +1,5 @@
 import MainBanner from "../../components/Banner/mainBanner";
-import styles from "../Workshops/workshops.module.sass";
+import styles from "./userworkshops.module.sass";
 import WorkshopCard from "../../components/Cards/workshop.card";
 import { IWorkshop } from "../../interfaces/app.interface";
 import { Spinner } from "reactstrap";
