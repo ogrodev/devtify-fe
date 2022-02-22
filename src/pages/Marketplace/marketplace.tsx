@@ -64,11 +64,11 @@ export default function Marketplace() {
 					</div>
 				</div>
 				<div className={`d-flex gap-3 flex-wrap align-content-stretch ${styles.position}}`}>
-					{!!settings.products.length &&
+					{!!settings.products?.length &&
 						settings.products?.map((product) => {
 							return <ProductCard product={product} key={product.id} />;
 						})}
-					{!settings.products.length && <Spinner />}
+					{!settings.products?.length && <Spinner />}
 				</div>
 				<div className="pt-5 mt-5" />
 				<div className="my-5">

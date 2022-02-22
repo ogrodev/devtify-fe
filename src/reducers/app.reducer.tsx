@@ -35,7 +35,7 @@ interface IAction {
 	modalTrigger?: string;
 }
 
-export const appReducer = (state: IApp = initialAppState, action: IAction) => {
+export const appReducer = (state: IApp = initialAppState, action: IAction): IApp => {
 	switch (action.type) {
 		case UPDATE_APP:
 			if (typeof action.payload === "string") return state;
@@ -49,26 +49,27 @@ export const appReducer = (state: IApp = initialAppState, action: IAction) => {
 			if (typeof action.payload === "string") return state;
 			sessionStorage.settings = JSON.stringify({
 				...state,
-				workshops: [...state.workshops, ...action.payload?.workshops!],
+				workshops: [...state.workshops!, ...action.payload?.workshops!],
 			});
 			return {
 				...state,
-				workshops: [...state.workshops, ...action.payload?.workshops!],
+				workshops: [...state.workshops!, ...action.payload?.workshops!],
 			};
 
 		case UPDATE_WORKSHOP:
 			if (typeof action.payload === "string") return state;
 			sessionStorage.settings = JSON.stringify({
 				...state,
-				workshops: state.workshops.map((workshop) =>
-					workshop.id === action.payload?.workshops[0].id ? action.payload?.workshops[0] : workshop
+				workshops: state.workshops?.map((workshop) =>
+					workshop.id === action.payload?.workshops![0].id ? action.payload?.workshops![0] : workshop
 				),
 			});
+			if (!state.workshops?.length) return state;
 			return {
 				...state,
-				workshops: state.workshops.map((workshop) =>
-					workshop.id === action.payload?.workshops[0].id ? action.payload?.workshops[0] : workshop
-				),
+				workshops: state.workshops?.map((workshop) =>
+					workshop.id === action.payload?.workshops![0].id ? action.payload?.workshops![0] : workshop
+				) as IWorkshop[],
 			};
 
 		case UPDATE_HIGHLIGHTS:
@@ -83,8 +84,8 @@ export const appReducer = (state: IApp = initialAppState, action: IAction) => {
 			return {
 				...state,
 				highlights: {
-					...state.highlights,
-					...action.payload,
+					...state.highlights!,
+					...action.payload!,
 				},
 			};
 
