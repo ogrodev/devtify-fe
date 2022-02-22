@@ -1,3 +1,5 @@
+import { IWorkshop } from "./app.interface";
+
 export interface IAuth {
 	authenticated: boolean;
 	id?: number;
@@ -40,24 +42,6 @@ export interface IUser {
 	project_client: string;
 	linkedin_url: string;
 	image?: string;
-}
-export interface IWorkshop {
-	id?: number;
-	title: string;
-	category_id: number;
-	skills: string;
-	price: number;
-	duration: number;
-	user: IUser;
-	thumbnail_url: string;
-	meeting_link: string;
-	date: string;
-	description: string;
-	user_id: number;
-	liked: boolean;
-	likes: ILike[];
-	created_at: string;
-	updated_at: string;
 }
 
 export interface ILike {
