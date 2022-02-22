@@ -102,7 +102,7 @@ export default function BuyModal(props: IProps) {
 								<span className="d-block secondaryText">{props.name}</span>
 								<span className="d-flex w-100 secondaryText align-items-center">
 									<Lottie animationData={coinData} width={30} height={30} />
-									{props.price} BD
+									{Math.round(props.price)} BD
 								</span>
 							</div>
 						</div>
