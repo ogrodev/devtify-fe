@@ -23,7 +23,7 @@ interface IHighlights {
 }
 
 export interface IWorkshop {
-	id?: string;
+	id?: number;
 	title: string;
 	category_id: number;
 	skills: string;

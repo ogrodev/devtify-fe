@@ -23,6 +23,13 @@ class MarketplaceService {
 			url: SERVER_API_BASE_V1 + `marketplace/${id}/buy`,
 		});
 	};
+
+	purchaseTicket = (id: string): AxiosPromise<any> => {
+		return apiService({
+			method: "post",
+			url: SERVER_API_BASE_V1 + `workshops/${id}/join`,
+		});
+	};
 }
 
 export const marketplaceService = new MarketplaceService();

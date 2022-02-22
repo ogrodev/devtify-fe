@@ -1,6 +1,7 @@
 import { IApp, IWorkshop } from "../interfaces/app.interface";
 
 export const UPDATE_APP = "APP/UPDATE";
+export const ADD_WORKSHOP = "APP/WS/ADD";
 export const UPDATE_HIGHLIGHTS = "APP/UPDATE/HIGHLIGHTS";
 export const TOGGLE_THEME = "APP/TOGGLE_THEME";
 export const TOGGLE_MODAL = "APP/MODAL/";
@@ -38,6 +39,17 @@ export const appReducer = (state: IApp = initialAppState, action: IAction) => {
 			return {
 				...state,
 				...action.payload,
+			};
+
+		case ADD_WORKSHOP:
+			if (typeof action.payload === "string") return state;
+			sessionStorage.settings = JSON.stringify({
+				...state,
+				workshops: [...state.workshops, ...action.payload?.workshops!],
+			});
+			return {
+				...state,
+				workshops: [...state.workshops, ...action.payload?.workshops!],
 			};
 
 		case UPDATE_HIGHLIGHTS:
