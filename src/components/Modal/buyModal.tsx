@@ -94,20 +94,20 @@ export default function BuyModal(props: IProps) {
 				<div className="d-flex gap-4">
 					<div className={`${styles.blueColumn} col-3`} />
 					<div className={styles.content}>
-						<div className="d-flex w-100 gap-3">
-							<div className="col-4">
+						<div className="d-flex w-100 gap-3 flex-wrap flex-lg-nowrap">
+							<div className="col-12 col-lg-4">
 								<span className="fw-bold">You selected:</span>
 							</div>
 							<div className={styles.contentInfo}>
-								<span className="d-block secondaryText">{props.name}</span>
+								<span className="d-block secondaryText mw-100">{props.name}</span>
 								<span className="d-flex w-100 secondaryText align-items-center">
 									<Lottie animationData={coinData} width={30} height={30} />
 									{Math.round(props.price)} BD
 								</span>
 							</div>
 						</div>
-						<div className="d-flex w-100 gap-3 mt-4">
-							<div className="col-4">
+						<div className="d-flex w-100 gap-3 mt-4 flex-wrap flex-lg-nowrap">
+							<div className="col-12 col-lg-4">
 								<span className="fw-bold">You currently have:</span>
 							</div>
 							<div className={styles.contentInfo}>
@@ -143,7 +143,7 @@ export default function BuyModal(props: IProps) {
 							variant="cian"
 							disabled={authState.balance! - props.price < 0}
 							onClick={handlePurchase}
-							className="my-4 w-50"
+							className="my-4 w-lg-50 w-100"
 						>
 							Confirm Purchase
 						</GenericButton>

@@ -16,7 +16,7 @@ export default function Home() {
 	}, []);
 	return (
 		<div className={`position-relative text-start defaultPadding pt-5 ${styles.container}`}>
-			<div className="d-flex align-items-center justify-content-between">
+			<div className="d-flex flex-wrap align-items-center justify-content-between">
 				<div className={styles.welcome}>
 					<h2>Hey {authState.name}!</h2>
 				</div>
