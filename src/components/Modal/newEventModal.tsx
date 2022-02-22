@@ -69,9 +69,9 @@ export default function NewEventModal() {
 				updateAuthState(UPDATE_AUTH, { balance: authState.balance! + 10 });
 				notify("Workshop created successfully", "Success");
 			})
-			.catch((error: AxiosError) => {
+			.catch((error) => {
 				setIsLoading(false);
-				notify(error.response?.data?.message || "An error occured while creating the workshop", "Error");
+				notify("A user can only have one active workshop", "Error");
 			});
 	};
 
