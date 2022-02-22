@@ -1,7 +1,7 @@
 import React, { Dispatch, Reducer, useReducer } from "react";
 import useAppMiddleware from "../hooks/useAppMiddleware";
 import { IApp, IWorkshop } from "../interfaces/app.interface";
-import { CLEAR_APP, TOGGLE_MODAL } from "../reducers/app.reducer";
+import { CLEAR_APP, TOGGLE_MODAL, UPDATE_WORKSHOP } from "../reducers/app.reducer";
 
 export interface IAppContext {
 	settings: IApp;
@@ -9,6 +9,7 @@ export interface IAppContext {
 	clearAppSettings: Function;
 	appDispatch: Dispatch<any>;
 	toggleModal: Function;
+	toggleLikeWs: Function;
 }
 
 const AppStateContext = React.createContext<IAppContext>({
@@ -22,6 +23,7 @@ const AppStateContext = React.createContext<IAppContext>({
 		},
 		workshops: [],
 		products: [],
+		inventory: [],
 		highlights: {
 			workshop: {} as IWorkshop,
 			products: [],
@@ -31,6 +33,7 @@ const AppStateContext = React.createContext<IAppContext>({
 	clearAppSettings: () => {},
 	appDispatch: () => {},
 	toggleModal: () => {},
+	toggleLikeWs: () => {},
 });
 
 interface IProvider {
@@ -41,8 +44,14 @@ interface IProvider {
 
 export const AppStateProvider = ({ children, reducer, initialState }: IProvider) => {
 	const [globalAppState, appDispatch] = useReducer<Reducer<IApp, any>>(reducer, initialState);
-	const { fetchWorkshops, fetchHighlightWorkshop, fetchUserInventory, fetchProducts, fetchHighlightProducts, fetchWorkshop } =
-		useAppMiddleware();
+	const {
+		fetchWorkshops,
+		fetchHighlightWorkshop,
+		fetchUserInventory,
+		fetchProducts,
+		fetchHighlightProducts,
+		fetchWorkshop,
+	} = useAppMiddleware();
 
 	const updateAppSettings = (type: string, payload: any) => {
 		switch (type) {
@@ -78,9 +87,33 @@ export const AppStateProvider = ({ children, reducer, initialState }: IProvider)
 		appDispatch({ type: TOGGLE_MODAL, modalTrigger: modalType });
 	};
 
+	const toggleLikeWs = (id: number, user_id: number) => {
+		const workshop = globalAppState.workshops.find((ws: IWorkshop) => ws.id === id);
+		if (workshop) {
+			if (workshop.likes.find((like) => like.user_id === user_id)) {
+				workshop.likes = workshop.likes.filter((like) => like.user_id !== user_id);
+			} else {
+				workshop.likes.push({
+					user_id,
+					id: Math.random() * 137,
+					workshop_id: id,
+				});
+			}
+			workshop.liked = !workshop.liked;
+			appDispatch({ type: UPDATE_WORKSHOP, payload: { workshops: [workshop] } });
+		}
+	};
+
 	return (
 		<AppStateContext.Provider
-			value={{ settings: globalAppState, updateAppSettings, clearAppSettings, appDispatch, toggleModal }}
+			value={{
+				settings: globalAppState,
+				updateAppSettings,
+				clearAppSettings,
+				appDispatch,
+				toggleModal,
+				toggleLikeWs,
+			}}
 		>
 			{children}
 		</AppStateContext.Provider>

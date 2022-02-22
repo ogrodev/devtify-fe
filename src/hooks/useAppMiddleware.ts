@@ -29,7 +29,7 @@ export default function useAppMiddleware() {
 
 	const fetchUserInventory = (appDispatch: Dispatch<any>) => {
 		marketplaceService.getInventory().then((response) => {
-			appDispatch({ type: UPDATE_APP, payload: { products: response.data.items } });
+			appDispatch({ type: UPDATE_APP, payload: { inventory: response.data.items } });
 		});
 	};
 
@@ -45,5 +45,12 @@ export default function useAppMiddleware() {
 		});
 	};
 
-	return { fetchWorkshops, fetchHighlightWorkshop, fetchUserInventory, fetchProducts, fetchHighlightProducts, fetchWorkshop };
+	return {
+		fetchWorkshops,
+		fetchHighlightWorkshop,
+		fetchUserInventory,
+		fetchProducts,
+		fetchHighlightProducts,
+		fetchWorkshop,
+	};
 }

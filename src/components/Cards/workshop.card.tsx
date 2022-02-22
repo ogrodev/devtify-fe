@@ -8,33 +8,53 @@ import useAuth from "../../hooks/useAuth";
 import { workshopService } from "../../services/workshop";
 import { AxiosError } from "axios";
 import useNotification from "../../hooks/useNotification";
-import React from "react";
+import useSettings from "../../hooks/useSettings";
+import { useState } from "react";
 
 interface IProps extends IWorkshop {
 	is_highlight?: boolean;
 }
 
 export default function WorkshopCard(props: IProps) {
+	const [liking, setLiking] = useState(false);
 	const navigate = useNavigate();
 	const { authState } = useAuth();
+	const { settings, toggleLikeWs } = useSettings();
 	const notify = useNotification();
+	const workshop = settings.workshops?.find((workshop) => workshop.id === props.id);
 
 	const userAvatar = props?.user?.image
 		? props?.user?.image
 		: createImageFromInitials(40, props?.user?.name || "User", "#0473b1");
 
 	const like = () => {
-		workshopService.likeWorkshop(props.id || 0)
+		if (liking) return;
+		toggleLikeWs(props.id!, authState.id!);
+		setLiking(true);
+		workshopService
+			.likeWorkshop(props.id!)
+			.then((response) => {
+				setLiking(false);
+			})
 			.catch((err: AxiosError) => {
 				notify(err.response?.data.message, "Error");
+				setLiking(false);
 			});
 		return;
 	};
 
 	const unlike = () => {
-		workshopService.unlikeWorkshop(props.id || 0)
+		if (liking) return;
+		toggleLikeWs(props.id!, authState.id!);
+		setLiking(true);
+		workshopService
+			.unlikeWorkshop(props.id!)
+			.then((response) => {
+				setLiking(false);
+			})
 			.catch((err: AxiosError) => {
 				notify(err.response?.data.message, "Error");
+				setLiking(false);
 			});
 		return;
 	};
@@ -62,11 +82,15 @@ export default function WorkshopCard(props: IProps) {
 					{!props?.is_highlight && (
 						<span className={styles.like}>
 							{props?.user_id !== authState.id && (
-								<React.Fragment>
-									{props?.likes.find(like => like.id === authState.id) ? <AiFillHeart size="1em" onClick={unlike}/> : <AiOutlineHeart size="1em" onClick={like}/>}
-								</React.Fragment>
+								<>
+									{workshop?.likes.find((like) => like.user_id === authState.id) ? (
+										<AiFillHeart size="1em" onClick={unlike} />
+									) : (
+										<AiOutlineHeart size="1em" onClick={like} />
+									)}
+								</>
 							)}
-							Liked by{" "}{props?.likes.length} people
+							Liked by {props?.likes?.length} people
 						</span>
 					)}
 					<span className={styles.category}>{props?.skills}</span>

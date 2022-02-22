@@ -15,6 +15,7 @@ export interface IApp {
 	workshops: IWorkshop[];
 	highlights: IHighlights;
 	products: IProduct[];
+	inventory: IProduct[];
 }
 
 interface IHighlights {
